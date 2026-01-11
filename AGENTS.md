@@ -25,26 +25,42 @@ Always use **Tailwind CSS** for styling unless a specific alternative styling pa
 
 **Canvas** is the template engine for Blutui that allows to build custom looks and feels for projects using a mix of HTML, CSS, JavaScript, and Canvas logic.
 
-- **Base Technologies:** HTML.
-- **Template Logic:** Controlled via variables, expressions, and tags.
+- The template is a regular text file. It can generate any text-based format (HTML, XML, CSV, LaTeX, etc.).
+- A template contains variables or expressions, which get replaced with values when the template is evaluated, and tags, which control the template's logic.
 
-### Syntax Reference
+**Example** 
 
-#### Tags (Logic)
+```canvas
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Webpage</title>
+  </head>
 
-Used for executing statements.
-`{% for item in collection %} ... {% endfor %}`
+  <body>
+    <ul id="navigation">
+      {% for item in navigation>
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+      {% endfor %}
+    </ul>
 
-#### Expressions (Output)
+    <h1>My Webpage</h1>
+    {{ a_variable }}
+  </body>
+</html>
+```
 
-Used for printing values to the rendered page.
-`{{ variable_name }}`
+- There are two kinds of delimiters: 
+    - {% ...> : Used for executing statements.
+    - {{ ... }} : Used for printing values to the rendered page.
+- Use the search_docs tool in Blutui MCP to find more information on available tags, filters, functions, tests, expressions and templating,
 
-## Blutui Courier
 
-Blutui Courier is a command-line interface tool to interact with a Blutui project. It allows user's to easily push code to their Blutui project and pull code down to their machine.
+## Courier
 
-- Blutui Courier includes the Blutui MCP server that comes with powerful tools designed specifically for this project.
+Courier is a command-line interface tool to interact with a project. It allows user's to easily push code to their project and pull code down to their machine.
+
+- Courier includes the Blutui MCP server that comes with powerful tools designed specifically for this project.
 
 ## Blutui Cassettes & Courier Workflow
 
@@ -60,14 +76,15 @@ Cassettes provide version control for a project. Each project can have multiple 
 }
 ```
 
-## Blutui Collections
+## Collections
 
-- A blutui collection is equivalent to a table with pre-defined fields.
+- A collection is equivalent to a table with pre-defined fields.
 - Each collection has a unique handle and a name. The agent must check if the a hadle exists, prior to creating a new collection.
 - The available field types are: "text", "textarea", "richtext", "checkbox", "radio", "select", "email", "phone", "url", "date", "time", "date-time", "color", "file", "number" 
 - Do not add custom field types.
 - A collection entry must be created to add data to a collection.
 - Create a link to connect two collections to avoid duplicate data.
+- Use a Collection whenever you need to manage multiple items that share the same structure. Instead of building a new page for every individual entry, use a Collection to create a single template that powers them all.
 
 To create, retreive and list collection or collection entries or links, the agent must utilize the tools present in Blutui MCP. 
 
@@ -90,9 +107,9 @@ To create, retreive and list collection or collection entries or links, the agen
 </div>
 ```
 
-## Blutui MCP
+## Bllutui MCP
 
-### Available Blutui MCP tools
+### Available MCP tools
 
 - The `list_*` tools (such as `list_pages`, `list_forms`, etc.) can be used to list all the different resources available within the project.
 - The `retrieve_*` tools (such as `list_page`, `list_form`, etc.) can be used to retrieve a single resources within the project.
@@ -122,13 +139,13 @@ To create, retreive and list collection or collection entries or links, the agen
     layout: "layouts/standard.html"
   )
 
-## Blutui Routing Pattern Standard
+## Routing Pattern Standard
 
 - Standardize to lowercase-hyphenated-format (e.g., `/product-category/{slug}`).
 - Use `{type}` notation. Supported types: {string}, {slug}, {date}, {time}, {number}.
 - Check for existing route conflicts; do not create duplicate patterns.
 
-## Blutui Form & Macro Guide
+## Form & Macro Guide
 
 ### Directory Structure
 
@@ -139,9 +156,9 @@ Ensure your `views` directory is organized as follows:
   - `forms/`
     - `contact.html` (Form implementation)
 
-### The Form Macro System
+### The Macro System
 
-Macros allow us to define how form fields (inputs, textareas, etc.) are rendered. 
+Macros allow us to define how form fields (inputs, textareas, etc.) are rendered. Discover other available macros utilising the search_docs mcp tool.
 
 #### Usage Example (in `views/components/form.html`):
 
