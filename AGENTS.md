@@ -53,6 +53,7 @@ Cassettes provide version control for a project. Each project can have multiple 
   "cassette": "development-v1",
   "handle": "client-project-handle"
 }
+```
 
 ## Blutui Collections
 
@@ -82,6 +83,7 @@ To create, retreive and list collection or collection entries or links, the agen
     {{ author.bio | raw }}
   </div>
 </div>
+```
 
 ## Blutui MCP
 
@@ -153,6 +155,7 @@ Macros allow us to define how form fields (inputs, textareas, etc.) are rendered
     {% endif %}
   </div>
 {% endmacro %}
+```
 
 ### Form Field Constraints
 
