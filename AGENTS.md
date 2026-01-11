@@ -15,7 +15,7 @@ This folder is the primary environment for UI development. Follow these sub-dire
 * "pages/": Each file in this directory corresponds to a specific URI or site section (e.g., "about-us.html") with unique page content or layout-specific overrides.
 * "layouts/": Each file in this directory corresponds to cpntent that wraps around multiple pages to provide a persistent UI (e.g., headers and footers).
 * "templates/": Has files with reusable design bases and system views. Key files include "default.html" (The foundational structure for the site.) and "404.html"  (The error state page).
-* Custom Directories (e.g., "components/"): custom directories added for Atomic, reusable UI fragments or anyother purposes.
+* Custom Directories (e.g., "components/"): Custom directories added for Atomic, reusable UI fragments or any other purposes.
 
 ## Styling
 
