@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Claude",
+        "description": "An AI agent developed by Anthropic",
+        "rules-directory": "CLAUDE.md"
+    },
+    {
+        "name": "Cursor",
+        "description": "An AI agent developed by Anysphere, Inc.",
+        "rules-directory": "AGENTS.md"
+    },
+    {
+        "name": "Github Copilot",
+        "description": "An AI agent developed by Github",
+        "rules-directory": ".github/copilot-instructions.md"
+    }
+]
