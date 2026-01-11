@@ -4,8 +4,13 @@
 
 ## File structure
 
-"\public": Store assets including complied JS/CSS, images and static PDFs.
-"\views": Add all files related to Blutui front-end logic. This folder is the primary environment for UI development. Follow these sub-directory conventions:
+### "\public" directory
+
+Store assets including complied JS/CSS, images and static PDFs.
+
+### "\view" directory
+
+This folder is the primary environment for UI development. Follow these sub-directory conventions:
 
 * "pages/": Each file in this directory corresponds to a specific URI or site section (e.g., "about-us.html") with unique page content or layout-specific overrides.
 * "layouts/": Each file in this directory corresponds to cpntent that wraps around multiple pages to provide a persistent UI (e.g., headers and footers).
