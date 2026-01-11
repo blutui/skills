@@ -53,7 +53,7 @@ Always use **Tailwind CSS** for styling unless a specific alternative styling pa
 - There are two kinds of delimiters: 
     - {% ...> : Used for executing statements.
     - {{ ... }} : Used for printing values to the rendered page.
-- Use the search_docs tool in Blutui MCP to find more information on available tags, filters, functions, tests, expressions and templating,
+- Use the search_docs tool in Blutui MCP to find more information on available tags, filters, functions, tests, expressions and other templating festures.
 
 
 ## Courier
