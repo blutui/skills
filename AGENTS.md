@@ -4,11 +4,11 @@ The Blutui Project guidelines are specifically curated by Blutui maintainers for
 
 ## File structure
 
-### "\public" directory
+### "/public" directory
 
 Store assets including complied JS/CSS, images and static PDFs.
 
-### "\view" directory
+### "/views" directory
 
 This folder is the primary environment for UI development. Follow these sub-directory conventions:
 
