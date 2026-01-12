@@ -53,8 +53,202 @@ Always use **Tailwind CSS** for styling unless a specific alternative styling pa
 - There are two kinds of delimiters: 
     - {% ...> : Used for executing statements.
     - {{ ... }} : Used for printing values to the rendered page.
-- Use the search_docs tool in Blutui MCP to find more information on available tags, filters, functions, tests, expressions and other templating festures.
 
+### Templating
+
+Example: Control Structure
+
+```canvas
+{% if users | length > 0 %}
+  <ul>
+    {% for user in users %}
+      <li>{{ user.username | e }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+```
+
+- To comment-out part of a line in a template, use the comment syntax {# ... #}.
+- Use the include function is useful to include a template and return the rendered content of that template into the current one: `{{ include('sidebar.html') }}`
+
+#### Template Inheritence
+
+Enales to build a base "skeleton" template that contains all the elements of the poject and defines blocks that child templates can override with the use of extends tag to extend another template.
+
+Example: 
+
+base template
+
+```canvas
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head %}
+      <link rel="stylesheet" href="style.css" />
+      <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+  </head>
+
+  <body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+        &copy; Copyright 2011 by <a href="http://domain.invalid/">you</a>.
+      {% endblock %}
+    </div>
+  </body>
+</html>
+```
+
+child template
+
+```canvas
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block head %}
+  {{ parent() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h1>Index</h1>
+  <p class="important">
+    Welcome to my awesome homepage.
+  </p>
+{% endblock %}
+```
+
+#### HTML Escaping
+
+1 The automatic escaping strategy can be configured via the autoescape tag and defaults to html.
+2 For larger sections, use verbatim tag to mark a block.
+
+#### Macros
+
+- Macros are comparable with functions in regular programming languages. 
+- They are useful to reuse HTML fragments to avoid repeating.
+- Discover other available macros in tag documentation utilising the search_docs mcp tool.
+
+#### Whitespace control
+
+1 Whitespace trimming via the - modifier: Removes all whitespace (including newlines);
+2 Line whitespace trimming via the ~ modifier: Removes all whitespace (excluding newlines). Using this modifier on the right disables the default removal of the first newline inherited.
+3 The modifiers can be used on either side of the tags like in {%- or -%} and they consume all whitespace for that side of the tag. It is possible to use the modifiers on one side of a tag or on both sides.
+4 The spaceless tag filter that removes whitespace between HTML tags
+
+Example 
+
+```canvas
+{% set value = 'no spaces' %}
+{#- No leading/trailing whitespace -#}
+{%- if true -%}
+  {{- value -}}
+{%- endif -%}
+{# output 'no spaces' #}
+
+<li>
+  {{ value }}    </li>
+{# outputs '<li>\\n    no spaces    </li>' #}
+
+<li>
+  {{- value }}    </li>
+{# outputs '<li>no spaces    </li>' #}
+
+<li>
+  {{~ value }}    </li>
+{# outputs '<li>\\nno spaces    </li>' #}
+
+{% apply spaceless %}
+  <div>
+    <strong>foo bar</strong>
+  </div>
+{% endapply %}
+
+{# output will be <div><strong>foo bar</strong></div> #}
+```
+
+### Expressions
+
+The operator precedence is as follows, with the lowest-precedence operators listed first: ?: (ternary operator), b-and, b-xor, b-or, or, and, ==, !=, <=>, <, >, >=, <=, in, matches, starts with, ends with, .., +, -, ~, *, /, //, %, is (tests), **, ??, | (filters), [], and .
+
+```canvas
+{% set greeting = 'Hello ' %}
+{% set name = 'Fabien' %}
+
+{{ greeting ~ name | lower }} {# Hello fabien #}
+
+{# use parenthesis to change precedence #}
+{{ (greeting ~ name) | lower }} {# hello fabien #}
+```
+
+### Variables
+
+Example: How to pass variables
+
+```canvas
+{{ foo.bar }}
+```
+
+Example: To access a dynamic atrribute of a variable
+
+```canvas
+{# equivalent to the non-working foo.data-foo #}
+{{ attribute(foo, 'data-foo') }}
+```
+
+Example: To assign values to variables, use set tag.
+
+```canvas
+{% set foo = 'foo' %}
+{% set foo = [1, 2] #}
+{% set foo = {'foo': 'bar'} #}
+```
+
+### Filters
+
+- Variables can be modified by filters (|). 
+- Multiple filters can be chained. 
+- The output of one filter is applied to the next.
+- Can accept arguments have parentheses around the arguments.
+
+Examples
+
+```canvas
+{{ name | striptags | title }}
+{{ list | join(', ') }}
+```
+
+To apply a filter on a section of code, wrap it with the apply tag:
+
+```canvas
+{% apply upper %}
+  This text becomes uppercase
+{% endapply %}
+```
+
+### Functions
+
+Example: For instance, the range function returns a list containing an arithmetic progression of integers:
+
+```canvas
+{% for i in range(0, 3) %}
+  {{ i }},
+{% endfor %}
+```
+
+or 
+
+```canvas
+{% for i in range(low = 1, high = 10, step = 2) %}
+  {{ i }},
+{% endfor %}
+``` 
+
+- Use the search_docs tool in Blutui MCP to find more information on available tags, filters, functions, tests, expressions and other templating festures.
 
 ## Courier
 
@@ -155,10 +349,6 @@ Ensure your `views` directory is organized as follows:
     - `form.html` (Macro definitions)
   - `forms/`
     - `contact.html` (Form implementation)
-
-### The Macro System
-
-Macros allow us to define how form fields (inputs, textareas, etc.) are rendered. Discover other available macros utilising the search_docs mcp tool.
 
 #### Usage Example (in `views/components/form.html`):
 
