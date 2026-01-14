@@ -12,14 +12,10 @@ Store assets including complied JS/CSS, images and static PDFs.
 
 This folder is the primary environment for UI development. Follow these sub-directory conventions:
 
-* "pages/": Each file in this directory corresponds to a specific URI or site section (e.g., "about-us.html") with unique page content or layout-specific overrides.
-* "layouts/": Each file in this directory corresponds to cpntent that wraps around multiple pages to provide a persistent UI (e.g., headers and footers).
+* "pages/": Each file in this directory corresponds to a specific URI or site section (e.g., "about-us.html") with unique page content or layout-specific overrides. Each file path maps to a URL route. To include a directory in the route path, create an index.html file within that directory. Other page files can be named as desired.
 * "templates/": Has files with reusable design bases and system views. Key files include "default.html" (The foundational structure for the site.) and "404.html"  (The error state page).
+* "layouts/": Each file in this directory corresponds to content that wraps around multiple pages to provide a persistent UI (e.g., headers and footers). A layout file always extends a template file.
 * Custom Directories (e.g., "components/"): Custom directories added for atomic, reusable UI fragments or any other purposes.
-
-## Styling
-
-Always use **Tailwind CSS** for styling unless a specific alternative styling package is explicitly installed in "package.json".
 
 ## Blutui Canvas 
 
@@ -54,200 +50,6 @@ Always use **Tailwind CSS** for styling unless a specific alternative styling pa
     - {% ...> : Used for executing statements.
     - {{ ... }} : Used for printing values to the rendered page.
 
-### Templating
-
-Example: Control Structure
-
-```canvas
-{% if users | length > 0 %}
-  <ul>
-    {% for user in users %}
-      <li>{{ user.username | e }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
-```
-
-- To comment-out part of a line in a template, use the comment syntax {# ... #}.
-- Use the include function is useful to include a template and return the rendered content of that template into the current one: `{{ include('sidebar.html') }}`
-
-#### Template Inheritence
-
-Enales to build a base "skeleton" template that contains all the elements of the poject and defines blocks that child templates can override with the use of extends tag to extend another template.
-
-Example: 
-
-base template
-
-```canvas
-<!DOCTYPE html>
-<html>
-  <head>
-    {% block head %}
-      <link rel="stylesheet" href="style.css" />
-      <title>{% block title %}{% endblock %} - My Webpage</title>
-    {% endblock %}
-  </head>
-
-  <body>
-    <div id="content">{% block content %}{% endblock %}</div>
-    <div id="footer">
-      {% block footer %}
-        &copy; Copyright 2011 by <a href="http://domain.invalid/">you</a>.
-      {% endblock %}
-    </div>
-  </body>
-</html>
-```
-
-child template
-
-```canvas
-{% extends 'base.html' %}
-
-{% block title %}Index{% endblock %}
-
-{% block head %}
-  {{ parent() }}
-  <style type="text/css">
-    .important { color: #336699; }
-  </style>
-{% endblock %}
-
-{% block content %}
-  <h1>Index</h1>
-  <p class="important">
-    Welcome to my awesome homepage.
-  </p>
-{% endblock %}
-```
-
-#### HTML Escaping
-
-1 The automatic escaping strategy can be configured via the autoescape tag and defaults to html.
-2 For larger sections, use verbatim tag to mark a block.
-
-#### Macros
-
-- Macros are comparable with functions in regular programming languages. 
-- They are useful to reuse HTML fragments to avoid repeating.
-- Discover other available macros in tag documentation utilising the search_docs mcp tool.
-
-#### Whitespace control
-
-1 Whitespace trimming via the - modifier: Removes all whitespace (including newlines);
-2 Line whitespace trimming via the ~ modifier: Removes all whitespace (excluding newlines). Using this modifier on the right disables the default removal of the first newline inherited.
-3 The modifiers can be used on either side of the tags like in {%- or -%} and they consume all whitespace for that side of the tag. It is possible to use the modifiers on one side of a tag or on both sides.
-4 The spaceless tag filter that removes whitespace between HTML tags
-
-Example 
-
-```canvas
-{% set value = 'no spaces' %}
-{#- No leading/trailing whitespace -#}
-{%- if true -%}
-  {{- value -}}
-{%- endif -%}
-{# output 'no spaces' #}
-
-<li>
-  {{ value }}    </li>
-{# outputs '<li>\\n    no spaces    </li>' #}
-
-<li>
-  {{- value }}    </li>
-{# outputs '<li>no spaces    </li>' #}
-
-<li>
-  {{~ value }}    </li>
-{# outputs '<li>\\nno spaces    </li>' #}
-
-{% apply spaceless %}
-  <div>
-    <strong>foo bar</strong>
-  </div>
-{% endapply %}
-
-{# output will be <div><strong>foo bar</strong></div> #}
-```
-
-### Expressions
-
-The operator precedence is as follows, with the lowest-precedence operators listed first: ?: (ternary operator), b-and, b-xor, b-or, or, and, ==, !=, <=>, <, >, >=, <=, in, matches, starts with, ends with, .., +, -, ~, *, /, //, %, is (tests), **, ??, | (filters), [], and .
-
-```canvas
-{% set greeting = 'Hello ' %}
-{% set name = 'Fabien' %}
-
-{{ greeting ~ name | lower }} {# Hello fabien #}
-
-{# use parenthesis to change precedence #}
-{{ (greeting ~ name) | lower }} {# hello fabien #}
-```
-
-### Variables
-
-Example: How to pass variables
-
-```canvas
-{{ foo.bar }}
-```
-
-Example: To access a dynamic atrribute of a variable
-
-```canvas
-{# equivalent to the non-working foo.data-foo #}
-{{ attribute(foo, 'data-foo') }}
-```
-
-Example: To assign values to variables, use set tag.
-
-```canvas
-{% set foo = 'foo' %}
-{% set foo = [1, 2] #}
-{% set foo = {'foo': 'bar'} #}
-```
-
-### Filters
-
-- Variables can be modified by filters (|). 
-- Multiple filters can be chained. 
-- The output of one filter is applied to the next.
-- Can accept arguments have parentheses around the arguments.
-
-Examples
-
-```canvas
-{{ name | striptags | title }}
-{{ list | join(', ') }}
-```
-
-To apply a filter on a section of code, wrap it with the apply tag:
-
-```canvas
-{% apply upper %}
-  This text becomes uppercase
-{% endapply %}
-```
-
-### Functions
-
-Example: For instance, the range function returns a list containing an arithmetic progression of integers:
-
-```canvas
-{% for i in range(0, 3) %}
-  {{ i }},
-{% endfor %}
-```
-
-or 
-
-```canvas
-{% for i in range(low = 1, high = 10, step = 2) %}
-  {{ i }},
-{% endfor %}
-``` 
-
 - Use the search_docs tool in Blutui MCP to find more information on available tags, filters, functions, tests, expressions and other templating festures.
 
 ## Courier
@@ -256,29 +58,22 @@ Courier is a command-line interface tool to interact with a project. It allows u
 
 - Courier includes the Blutui MCP server that comes with powerful tools designed specifically for this project.
 
+Courier must be installed and configured on the user's machine to enable full functionality. `courier version` can be used to check if the user has courier installed.
+
 ## Blutui Cassettes & Courier Workflow
 
-Cassettes provide version control for a project. Each project can have multiple Cassettes, allowing for rapid design switching or parallel development.
-
-### Configuration (`courier.json`)
-
-```json
-{
-  "$schema": "https://dev.blutui.com/schemas/v1/schema.json",
-  "cassette": "development-v1",
-  "handle": "client-project-handle"
-}
-```
+Cassettes provide version control for a project. Each project can have multiple Cassettes, allowing for rapid design switching or parallel development. 
 
 ## Collections
 
+Use a Collection whenever you need to manage multiple items that share the same structure. Instead of building a new page for every individual entry, use a Collection to create a single template that powers them all.
+
 - A collection is equivalent to a table with pre-defined fields.
-- Each collection has a unique handle and a name. The agent must check if the a hadle exists, prior to creating a new collection.
+- Each collection has a unique handle and a name. The agent must check if the a handle exists, prior to creating a new collection.
 - The available field types are: "text", "textarea", "richtext", "checkbox", "radio", "select", "email", "phone", "url", "date", "time", "date-time", "color", "file", "number" 
 - Do not add custom field types.
 - A collection entry must be created to add data to a collection.
 - Create a link to connect two collections to avoid duplicate data.
-- Use a Collection whenever you need to manage multiple items that share the same structure. Instead of building a new page for every individual entry, use a Collection to create a single template that powers them all.
 
 To create, retreive and list collection or collection entries or links, the agent must utilize the tools present in Blutui MCP. 
 
@@ -301,7 +96,7 @@ To create, retreive and list collection or collection entries or links, the agen
 </div>
 ```
 
-## Bllutui MCP
+## Blutui MCP
 
 ### Available MCP tools
 
@@ -333,13 +128,50 @@ To create, retreive and list collection or collection entries or links, the agen
     layout: "layouts/standard.html"
   )
 
+## Configuration (`courier.json`)
+
+The handle is a required property in the `courier.json` file located in the root directory of the project. It specifies the unique identifier for the Blutui project. The agent must always prompt the user to provide the `handle` property. The agent must not attempt to guess or fabricate a handle. A missing handle could be one of the reasons for failure of Blutui mcp tool calls.
+
+The cassette specified in the `courier.json` file determines which version of the project is active. 
+
+**Prior to making any changes to the `courier.json` file, the agent must confirm if the user has logged in using 
+
+```bash 
+courier login --token < token.txt
+``` 
+command and added the token.txt file to the root directory of the project. If the user has not done this, the agent must instruct the user to complete this step first.**
+
+```json
+{
+  "cassette": "default",
+  "handle": "project-handle"
+}
+```
+
+**After making any changes to the `courier.json` file, the agent must instruct the user to restart the Blutui MCP server.** 
+
 ## Routing Pattern Standard
 
+### Key Concepts to Convey
+
+- Dynamic URLs (e.g., `/team/{name}`) that map to a single template layout.
+- The variable part of the URL (e.g., `{name}`), which is accessed in code via `route.data.name`.
+- To filter logic use Canvas to match URL slugs against collection data to pull the correct record.
 - Standardize to lowercase-hyphenated-format (e.g., `/product-category/{slug}`).
 - Use `{type}` notation. Supported types: {string}, {slug}, {date}, {time}, {number}.
 - Check for existing route conflicts; do not create duplicate patterns.
+- The agent must first create a layout file (e.g., `team-member.html`).
+- This file serves as the template for every item in the collection.
+- For directory-based routes, create an `index.html` file within the directory to define the page at that path (e.g., `pages/about/index.html` maps to `/about`).
 
-## Form & Macro Guide
+```canvas
+{% set members = cms.collection('team') %}
+{% set member = members | filter(entry => (entry.name | slug) == route.data.name) | first %}
+<h1>{{ member.name }}</h1>
+<p>{{ member.bio }}</p>
+```
+
+## Forms
 
 ### Directory Structure
 
@@ -369,11 +201,30 @@ Ensure your `views` directory is organized as follows:
 {% endmacro %}
 ```
 
+#### Usage Example (in `views/forms/contact.html`):
+
+```canvas
+{% import 'components/form' as ui %}
+
+{% form 'contact' %}
+  {% for field in form.fields %}
+    {{ ui.field(field) }}
+  {% endfor %}
+
+  <button type="submit" class="">Submit</button>
+{% endform %}
+```
+
 ### Form Field Constraints
 
-- **Allowed Types:** ["text", "textarea", "radio", "select", "checkbox", "url", "email", "phone", "hidden", "time", "date", "number"]
+- **Allowed Types:** "text", "textarea", "radio", "select", "checkbox", "url", "email", "phone", "hidden", "time", "date", "number"
 - Do not attempt to use custom field types. If a type is not on this list, default to `text` and notify the user.
 - Always transmit field types to the MCP in lowercase format.
+
+
+
+
+
 
 
 
