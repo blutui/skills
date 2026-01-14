@@ -50,7 +50,7 @@ This folder is the primary environment for UI development. Follow these sub-dire
     - {% ...> : Used for executing statements.
     - {{ ... }} : Used for printing values to the rendered page.
 
-- Use the search_docs tool in Blutui MCP to find more information on available tags, filters, functions, tests, expressions and other templating festures.
+- Use the search_blutui_documentation tool in Blutui MCP to find more information on available tags, filters, functions, tests, expressions and other templating festures.
 
 ## Courier
 
@@ -58,7 +58,7 @@ Courier is a command-line interface tool to interact with a project. It allows u
 
 - Courier includes the Blutui MCP server that comes with powerful tools designed specifically for this project.
 
-Courier must be installed and configured on the user's machine to enable full functionality. `courier version` can be used to check if the user has courier installed.
+Courier must be installed and configured on the user's machine to enable full functionality. `courier version` command can be used to check if the user has courier installed.
 
 ## Blutui Cassettes & Courier Workflow
 
@@ -66,14 +66,15 @@ Cassettes provide version control for a project. Each project can have multiple 
 
 ## Collections
 
-Use a Collection whenever you need to manage multiple items that share the same structure. Instead of building a new page for every individual entry, use a Collection to create a single template that powers them all.
-
-- A collection is equivalent to a table with pre-defined fields.
+- A collection is like a data structure with pre-defined fields.
 - Each collection has a unique handle and a name. The agent must check if the a handle exists, prior to creating a new collection.
 - The available field types are: "text", "textarea", "richtext", "checkbox", "radio", "select", "email", "phone", "url", "date", "time", "date-time", "color", "file", "number" 
 - Do not add custom field types.
 - A collection entry must be created to add data to a collection.
-- Create a link to connect two collections to avoid duplicate data.
+
+Use a Collection whenever you need to add data that share the same structure. 
+
+In the case, when a collection has a some connection to another collection, the agent can look into linking collections using the search_blutui_documentation mcp tool.
 
 To create, retreive and list collection or collection entries or links, the agent must utilize the tools present in Blutui MCP. 
 
@@ -134,12 +135,12 @@ The handle is a required property in the `courier.json` file located in the root
 
 The cassette specified in the `courier.json` file determines which version of the project is active. 
 
-**Prior to making any changes to the `courier.json` file, the agent must confirm if the user has logged in using 
+**Prior to making any changes to the `courier.json` file, the agent must confirm if the user has logged in using
+the command below and add the token.txt file to the root directory of the project. If the user has not done this, the agent must instruct the user to complete this step first.**
 
 ```bash 
 courier login --token < token.txt
 ``` 
-command and added the token.txt file to the root directory of the project. If the user has not done this, the agent must instruct the user to complete this step first.**
 
 ```json
 {
@@ -152,17 +153,13 @@ command and added the token.txt file to the root directory of the project. If th
 
 ## Routing Pattern Standard
 
-### Key Concepts to Convey
+The agent must pay attention to route patterns when the project would require to build many pages that will include more than one nested page.
 
-- Dynamic URLs (e.g., `/team/{name}`) that map to a single template layout.
-- The variable part of the URL (e.g., `{name}`), which is accessed in code via `route.data.name`.
-- To filter logic use Canvas to match URL slugs against collection data to pull the correct record.
-- Standardize to lowercase-hyphenated-format (e.g., `/product-category/{slug}`).
-- Use `{type}` notation. Supported types: {string}, {slug}, {date}, {time}, {number}.
-- Check for existing route conflicts; do not create duplicate patterns.
-- The agent must first create a layout file (e.g., `team-member.html`).
-- This file serves as the template for every item in the collection.
-- For directory-based routes, create an `index.html` file within the directory to define the page at that path (e.g., `pages/about/index.html` maps to `/about`).
+- A route pattern could include parameter(s) (e.g., `/team/:name`), which is accessed in code via `route.data.name`.
+- The supported parameter types: string, slug, date, time, number.
+- Each unique route pattern is mapped to a single template file.
+
+Route patterns can be utilised to filter collections as shown below:
 
 ```canvas
 {% set members = cms.collection('team') %}
@@ -170,6 +167,10 @@ command and added the token.txt file to the root directory of the project. If th
 <h1>{{ member.name }}</h1>
 <p>{{ member.bio }}</p>
 ```
+
+Use Blutui MCP tools to create, retreive and list route patterns.
+
+When using the create_route-pattern tool, the agent must use the list_route-patterns tool and determine a unique route pattern.
 
 ## Forms
 
