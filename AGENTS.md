@@ -21,7 +21,7 @@ This folder is the primary environment for UI development. Follow these sub-dire
 
 **Canvas** is the template engine for Blutui that allows to build custom looks and feels for projects using a mix of HTML, CSS, JavaScript, and Canvas logic.
 
-- The template is a regular text file. It can generate any text-based format (HTML, XML, CSV, LaTeX, etc.).
+- The template is a regular text file. It can generate any text-based format (HTML, XML, CSV, LaTeX, etc.). The file extension is ".canvas"
 - A template contains variables or expressions, which get replaced with values when the template is evaluated, and tags, which control the template's logic.
 
 **Example** 

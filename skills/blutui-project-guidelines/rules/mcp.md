@@ -1,0 +1,40 @@
+---
+title: MCP
+impact: MEDIUM
+impactDescription: An MCP enable AI agents to access Blutui project specific tools improving development speed upto 3 times more.
+tags: mcp, tools, search, documentation
+---
+
+## Blutui MCP
+
+### Available MCP tools
+
+- The `list_*` tools (such as `list_pages`, `list_forms`, etc.) can be used to list all the different resources available within the project.
+- The `retrieve_*` tools (such as `list_page`, `list_form`, etc.) can be used to retrieve a single resources within the project.
+- The `create_*` tools (such as `create_page`, `create_form`, etc.) can be used to create new resources within the project.
+
+### Search Documentation (Critically Important)
+
+- Blutui Courier MCP comes with a powerful `search_blutui_documentation` tool you should use before any other approaches.
+- You must use this tool to search the Blutui documentation before falling back to other approaches.
+- Search the documentation before making code changes to ensure we are taking the correct approach.
+
+### Handle Property Standards
+
+- **Pre-flight Check:** For the `create_form` or `create_menu` tool, always execute the corresponding `list_*` tool first.
+- **Validation:** Compare the user's desired `handle` against the `handle` properties in the retrieved list.
+- **Error Prevention:** If a match is found, do not call the creation tool. Instead, notify the user of the conflict.
+- **Offline Mode:** If the `blutui` MCP tools are unreachable, you must ask the user for the specific `handle` property before suggesting a configuration.
+
+### Layout Property Standards
+
+- All `layout`, `template`, `post_layout` or `blog_layout` parameters must reside in the `layouts/` folder in any Blutui MCP tool.
+- Strictly abide by this pattern: `layouts/{filename}.(html|canvas)`
+- Automatically prepend `layout/` if the user provides a raw filename.
+- **Example Tool Call:**
+  create_page(
+    handle: "about-us",
+    layout: "layouts/standard.html"
+  )
+
+Reference: [Link to documentation](https://dev.blutui.com/guides/figma-to-blutui)

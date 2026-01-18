@@ -1,0 +1,23 @@
+---
+title: File Structure
+impact: CRITICAL
+impactDescription: 100% impact for a new project without a pre-defined template. 90% impact for a new project with a pre-defined template.
+tags: project, file structure, public, views, assets, pages, layouts, templates, components
+---
+
+## File structure
+
+### "/public" directory
+
+Store assets including complied JS/CSS, images and static PDFs.
+
+### "/views" directory
+
+This folder is the primary environment for UI development. Follow these sub-directory conventions:
+
+* "pages/": Each file in this directory corresponds to a specific URI or site section (e.g., "about-us.html") with unique page content or layout-specific overrides. Each file path maps to a URL route. To include a directory in the route path, create an index.html file within that directory. Other page files can be named as desired.
+* "templates/": Has files with reusable design bases and system views. Key files include "default.html" (The foundational structure for the site.) and "404.html"  (The error state page).
+* "layouts/": Each file in this directory corresponds to content that wraps around multiple pages to provide a persistent UI (e.g., headers and footers). A layout file always extends a template file.
+* Custom Directories (e.g., "components/"): Custom directories added for atomic, reusable UI fragments or any other purposes.
+
+Reference: [Link to documentation](https://dev.blutui.com/docs/courier/getting-started)
