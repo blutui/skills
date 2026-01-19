@@ -12,10 +12,17 @@ Store assets including complied JS/CSS, images and static PDFs.
 
 This folder is the primary environment for UI development. Follow these sub-directory conventions:
 
-* "pages/": Each file in this directory corresponds to a specific URI or site section (e.g., "about-us.html") with unique page content or layout-specific overrides. Each file path maps to a URL route. To include a directory in the route path, create an index.html file within that directory. Other page files can be named as desired.
+* "pages/": Each file in this directory corresponds to a specific URI or site section (e.g., "about-us.html") with unique page content or layout-specific overrides. Each file path maps to a URL route. To include a directory in the route path, create an index.html file within that directory. Other page files can be named as desired. For example "views/pages/index.html" maps to the root URL ("/"), while "views/pages/blogs/index.html" maps to "/blogs" and "views/pages/blogs/post.html" maps to "/blogs/:slug".
 * "templates/": Has files with reusable design bases and system views. Key files include "default.html" (The foundational structure for the site.) and "404.html"  (The error state page).
 * "layouts/": Each file in this directory corresponds to content that wraps around multiple pages to provide a persistent UI (e.g., headers and footers). A layout file always extends a template file.
 * Custom Directories (e.g., "components/"): Custom directories added for atomic, reusable UI fragments or any other purposes.
+
+## Layouts and Templates
+
+- A template is a file that defines the overall structure of the project, including common elements like headers, footers, and navigation menus. Templates are used to provide a consistent look and feel across multiple pages in a project. A template can be extended by another template file but not a layout file.
+- A layout is a file that defines the specific arrangement of content within a page. Layouts are used to define how the content of a page must be presented within the overall structure defined by the template.
+- A page is a file that extends a layout to define the specific content for that page.
+- When using the `layout`, `template`, `post_layout` or `blog_layout` parameters in any Blutui MCP tool, make sure the layout file path is relative to the `views` directory (e.g., `layouts/about.html`, not `views/layouts/about.html`). Always place layout files in the `views/layouts` directory.
 
 ## Blutui Canvas 
 
@@ -60,7 +67,7 @@ Courier is a command-line interface tool to interact with a project. It allows u
 
 Courier must be installed and configured on the user's machine to enable full functionality. `courier version` command can be used to check if the user has courier installed.
 
-## Blutui Cassettes & Courier Workflow
+## Cassettes 
 
 Cassettes provide version control for a project. Each project can have multiple Cassettes, allowing for rapid design switching or parallel development. 
 
@@ -118,17 +125,6 @@ To create, retreive and list collection or collection entries or links, the agen
 - **Error Prevention:** If a match is found, do not call the creation tool. Instead, notify the user of the conflict.
 - **Offline Mode:** If the `blutui` MCP tools are unreachable, you must ask the user for the specific `handle` property before suggesting a configuration.
 
-### Layout Property Standards
-
-- All `layout`, `template`, `post_layout` or `blog_layout` parameters must reside in the `layouts/` folder in any Blutui MCP tool.
-- Strictly abide by this pattern: `layouts/{filename}.(html|canvas)`
-- Automatically prepend `layout/` if the user provides a raw filename.
-- **Example Tool Call:**
-  create_page(
-    handle: "about-us",
-    layout: "layouts/standard.html"
-  )
-
 ## Configuration (`courier.json`)
 
 The handle is a required property in the `courier.json` file located in the root directory of the project. It specifies the unique identifier for the Blutui project. The agent must always prompt the user to provide the `handle` property. The agent must not attempt to guess or fabricate a handle. A missing handle could be one of the reasons for failure of Blutui mcp tool calls.
@@ -157,6 +153,7 @@ The agent must pay attention to route patterns when the project would require to
 
 - A route pattern could include parameter(s) (e.g., `/team/:name`), which is accessed in code via `route.data.name`.
 - The supported parameter types: string, slug, date, time, number.
+- When creating a route pattern only create a layout file that corresponds to the route pattern. Do not create a page file for the route pattern.
 - Each unique route pattern is mapped to a single template file.
 
 Route patterns can be utilised to filter collections as shown below:
@@ -222,20 +219,10 @@ Ensure your `views` directory is organized as follows:
 - Do not attempt to use custom field types. If a type is not on this list, default to `text` and notify the user.
 - Always transmit field types to the MCP in lowercase format.
 
-
 ## Canopy
 
-Canopy is Blutui's in-page editor that enables developers to construct the website's structure and allow content managers to edit pages directly within the interface.
+Canopy is Blutui's in-page editor that enables developers to construct the website's structure and allow content managers to edit pages directly within the Blutui interface.
 
 Canopy functions enable a developer to add editing capabilities for a variety of elements in a project. For example editing text, lists, images, videos, buttons, audios and headings.
 
 Use the search_blutui_documentation mcp tool to access the Canopy functions that can be used in a project.
-
-
-
-
-
-
-
-
-
