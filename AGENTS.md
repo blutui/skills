@@ -66,11 +66,11 @@ Cassettes provide version control for a project. Each project can have multiple 
 
 ## Collections
 
-- A collection is like a data structure with pre-defined fields.
-- Each collection has a unique handle and a name. The agent must check if the a handle exists, prior to creating a new collection.
+Collections are the primary method for managing structured data within Blutui that define reusable data schemas using a wide range of field types. 
+
+- Each collection must have a unique handle. The agent must check if the a handle exists, prior to creating a new collection.
 - The available field types are: "text", "textarea", "richtext", "checkbox", "radio", "select", "email", "phone", "url", "date", "time", "date-time", "color", "file", "number" 
 - Do not add custom field types.
-- A collection entry must be created to add data to a collection.
 
 Use a Collection whenever you need to add data that share the same structure. 
 
