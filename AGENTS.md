@@ -22,6 +22,7 @@ This folder is the primary environment for UI development. Follow these sub-dire
 - A template is a file that defines the overall structure of the project, including common elements like headers, footers, and navigation menus. Templates are used to provide a consistent look and feel across multiple pages in a project. A template can be extended by another template file but not a layout file.
 - A layout is a file that defines the specific arrangement of content within a page. Layouts are used to define how the content of a page must be presented within the overall structure defined by the template.
 - A page is a file that extends a layout to define the specific content for that page.
+- When creating a route pattern, add the content for a page within the layouts file and not create a page file. 
 - When using the `layout`, `template`, `post_layout` or `blog_layout` parameters in any Blutui MCP tool, make sure the layout file path is relative to the `views` directory (e.g., `layouts/about.html`, not `views/layouts/about.html`). Always place layout files in the `views/layouts` directory.
 
 ## Blutui Canvas 
@@ -109,7 +110,7 @@ To create, retreive and list collection or collection entries or links, the agen
 ### Available MCP tools
 
 - The `list_*` tools (such as `list_pages`, `list_forms`, etc.) can be used to list all the different resources available within the project.
-- The `retrieve_*` tools (such as `list_page`, `list_form`, etc.) can be used to retrieve a single resources within the project.
+- The `retrieve_*` tools (such as `retrieve_page`, `retrieve_form`, etc.) can be used to retrieve a single resources within the project.
 - The `create_*` tools (such as `create_page`, `create_form`, etc.) can be used to create new resources within the project.
 
 ### Search Documentation (Critically Important)
@@ -126,6 +127,8 @@ To create, retreive and list collection or collection entries or links, the agen
 - **Offline Mode:** If the `blutui` MCP tools are unreachable, you must ask the user for the specific `handle` property before suggesting a configuration.
 
 ## Configuration (`courier.json`)
+
+**Prior to executing a prompt, the agent must confirm if the `courier.json` file exists in the project.**
 
 The handle is a required property in the `courier.json` file located in the root directory of the project. It specifies the unique identifier for the Blutui project. The agent must always prompt the user to provide the `handle` property. The agent must not attempt to guess or fabricate a handle. A missing handle could be one of the reasons for failure of Blutui mcp tool calls.
 

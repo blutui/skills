@@ -9,4 +9,6 @@ tags: tag1, tag2
 
 Explanatory text with examples.
 
-Reference: [Link to documentation](https://example.com)
+Reference: [Link to documentation](https://dev.blutui.com)
+
+or a list of links referencing Blutui documentation
