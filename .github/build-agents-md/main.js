@@ -23,21 +23,14 @@ function addMetadataToAgentsMd(skillPath, outputPath) {
 
     agentsContent += `* Version: ${metadata.version}\n`;
     agentsContent += `* Organization: ${metadata.organization}\n`;
-    agentsContent += `* Date: ${metadata.date}*\n`;
+    agentsContent += `* Date: ${metadata.date}\n`;
 
     if (metadata.references && metadata.references.length > 0) {
-        agentsContent += '**References:**\n';
+        agentsContent += '* References:\n';
         metadata.references.forEach(ref => {
-            agentsContent += `- ${ref}\n`;
+            agentsContent += `  - ${ref}\n`;
         });
         agentsContent += '\n';
-    }
-
-    // Read and append AGENTS.md content if it exists
-    const agentsMdPath = path.join(outputPath, 'AGENTS.md');
-    if (fs.existsSync(agentsMdPath)) {
-        const existingAgentsContent = fs.readFileSync(agentsMdPath, 'utf8');
-        agentsContent += existingAgentsContent;
     }
 
     // Write to output path
