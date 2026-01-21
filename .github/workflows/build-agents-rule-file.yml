@@ -14,18 +14,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      - name: Build AGENTS.md Rule File
-        run: |  
-          # Sync to R2 - files will be stored preserving directory structure
-          aws s3 sync ./content/ \
-            "s3://${R2_BUCKET}/" \
-            --endpoint-url "https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com" \
-            --exclude "*" \
-            --include "*.md" \
-            --include "*.mdx" \
-            --delete
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
       
-      - name: Upload summary
+      - name: Build AGENTS.md
         run: |
-          md_count=$(find ./content -type f \( -name "*.md" -o -name "*.mdx" \) | wc -l)
-          echo "Uploaded $md_count markdown files from /content to R2 (preserving directory structure)"
+          node .github/build-agents-md/build.js
+      
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add AGENTS.md Claude.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update AGENTS.md and Claude.md" && git push)

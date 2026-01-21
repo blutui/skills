@@ -88,7 +88,18 @@ function addRulesContent(rulesPath) {
     'Canopy': 'canopy'
   };
   
-  const rulesContent = "";
+  // Define section order
+  const sections = [
+    'foundation',
+    'mcp',
+    'canvas',
+    'courier',
+    'cassettes',
+    'collections',
+    'canopy'
+  ];
+  
+  let rulesContent = "";
 
   // Read all files in the rules directory
   const allFiles = fs.readdirSync(rulesPath)
