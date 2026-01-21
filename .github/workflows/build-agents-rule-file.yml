@@ -31,5 +31,5 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add AGENTS.md Claude.md
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update AGENTS.md and Claude.md" && git push)
+          git add AGENTS.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update AGENTS.md" && git push)

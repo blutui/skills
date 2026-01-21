@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { addMetadataToClaudeMd, addClaudeMdToRoot, addRulesContent } = require('./main.js');
+const { addMetadataToAgentsMd, addAgentsMdToRoot, addRulesContent } = require('./main.js');
 
 /**
  * Main build function that orchestrates the generation of AGENTS.md
@@ -15,39 +15,31 @@ function buildAgentsMd() {
     const rootDir = path.join(__dirname, '../..');
     const skillPath = path.join(rootDir, 'skills/blutui-project-guidelines');
     const rulesPath = path.join(skillPath, 'rules');
-    const claudeMdPath = path.join(skillPath, 'Claude.md');
+    const rootAgentsMdPath = path.join(rootDir, 'AGENTS.md');
     
-    // Step 1: Generate Claude.md with metadata in the skill folder
-    console.log('📝 Step 1: Generating Claude.md with metadata...');
-    addMetadataToClaudeMd(skillPath, claudeMdPath);
+    // Step 1: Generate metadata content
+    console.log('📝 Step 1: Generating metadata content...');
+    const tempPath = path.join(skillPath, 'temp-agents.md');
+    addMetadataToAgentsMd(skillPath, tempPath);
+    let agentsContent = fs.readFileSync(tempPath, 'utf8');
+    fs.unlinkSync(tempPath); // Clean up temp file
     
-    // Step 2: Copy Claude.md to root directory
-    console.log('\n📋 Step 2: Copying Claude.md to root directory...');
-    addClaudeMdToRoot(claudeMdPath, rootDir);
-    
-    // Step 3: Generate AGENTS.md with combined content
-    console.log('\n📦 Step 3: Generating AGENTS.md with rules content...');
-    
-    // Read the Claude.md content from root
-    const rootClaudeMdPath = path.join(rootDir, 'Claude.md');
-    let agentsContent = fs.readFileSync(rootClaudeMdPath, 'utf8');
-    
-    // Add rules content
+    // Step 2: Add rules content
+    console.log('\n📦 Step 2: Adding rules content...');
     const rulesContent = addRulesContent(rulesPath);
     agentsContent += '\n\n' + rulesContent;
     
-    // Write AGENTS.md to root
-    const agentsMdPath = path.join(rootDir, 'AGENTS.md');
-    const agentsExists = fs.existsSync(agentsMdPath);
-    fs.writeFileSync(agentsMdPath, agentsContent, 'utf8');
-    console.log(`✓ AGENTS.md ${agentsExists ? 'updated' : 'created'} at ${agentsMdPath}`);
+    // Step 3: Write AGENTS.md directly to root
+    console.log('\n💾 Step 3: Writing AGENTS.md to root directory...');
+    const agentsExists = fs.existsSync(rootAgentsMdPath);
+    fs.writeFileSync(rootAgentsMdPath, agentsContent, 'utf8');
+    console.log(`✓ AGENTS.md ${agentsExists ? 'updated' : 'created'} at ${rootAgentsMdPath}`);
     
     console.log('\n✅ Build completed successfully!\n');
     
     // Summary
     console.log('📊 Summary:');
-    console.log(`   - Claude.md: ${rootClaudeMdPath}`);
-    console.log(`   - AGENTS.md: ${agentsMdPath}`);
+    console.log(`   - AGENTS.md: ${rootAgentsMdPath}`);
     console.log(`   - Total size: ${(agentsContent.length / 1024).toFixed(2)} KB\n`);
     
     return 0;
