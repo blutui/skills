@@ -1,7 +1,7 @@
 ---
 title: File Structure
 impact: CRITICAL
-impactDescription: 100% impact for a new project without a pre-defined template. 90% impact for a new project with a pre-defined template.
+impactDescription: Structural Integrity - Adherence to the Blutui file structure is mandatory. Deviating from these conventions breaks core system compatibility, rendering the project non-functional and preventing deployment.
 tags: project, file structure, public, views, assets, pages, layouts, templates, components
 ---
 

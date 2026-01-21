@@ -1,6 +1,7 @@
 ---
 title: Templates and Layouts
 impact: CRITICAL
+impactDescription: Functional Impact - Blutui templates and layouts govern core project logic. Deviating from these structures results in broken inheritance and rendering failures, preventing the project from functioning as intended.
 tags: project, file structure, views, templates, pages, layouts
 ---
 

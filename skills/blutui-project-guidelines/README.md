@@ -8,7 +8,6 @@ A structured repository for creating and maintaining React Best Practices optimi
   - `_sections.md` - Section metadata (titles, impacts, descriptions)
   - `_template.md` - Template for creating new rules
   - `foundation-file-structure.md` - Individual rule files
-- `src/` - Build scripts and utilities
 - `metadata.json` - Document metadata (version, organization, abstract)
 - __`AGENTS.md`__ - Compiled output (generated)
 
@@ -25,7 +24,6 @@ A structured repository for creating and maintaining React Best Practices optimi
    - `canopy-` for JavaScript Performance (Section 7)
 3. Fill in the frontmatter and content
 4. Ensure you have clear examples with explanations
-5. Run `pnpm build` to regenerate AGENTS.md and test-cases.json
 
 ## Rule File Structure
 
@@ -54,8 +52,6 @@ or a list of links referencing Blutui documentation
 - Files starting with `_` are special (excluded from build)
 - Rule files: `area-description.md` (e.g., `async-parallel.md`)
 - Section is automatically inferred from filename prefix
-- Rules are sorted alphabetically by title within each section
-- IDs (e.g., 1.1, 1.2) are auto-generated during build
 
 ## Impact Levels
 

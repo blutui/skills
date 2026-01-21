@@ -22,7 +22,7 @@ The section ID (in parentheses) is the filename prefix used to group rules.
 
 ## 4. Courier
 
-**Impact:** MEDIUM  
+**Impact:** CRITICAL  
 **Description:** Blutui command line interface guide.
 
 ## 5. Cassettes

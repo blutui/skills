@@ -47,7 +47,7 @@ Reference these guidelines when:
 
 - `canvas` - Use to write code using Blutui syntax
 
-### 4. Courier (MEDIUM)
+### 4. Courier (CRITICAL)
 
 - `courier` - Use to understand Blutui CLI capabilities
 

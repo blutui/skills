@@ -1,6 +1,7 @@
 ---
 title: Form Standards 
 impact: CRITICAL
+impactDescription: Strict adherence to Blutui Form Syntax is mandatory. Non-compliant syntax causes silent failures or data submission errors, preventing the form from processing correctly within the ecosystem.
 tags: form
 ---
 

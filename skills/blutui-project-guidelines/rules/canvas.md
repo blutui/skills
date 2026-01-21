@@ -1,7 +1,7 @@
 ---
 title: Canvas - Template Engine
 impact: CRITICAL
-impactDescription: 90% impact as the template engine adds interactivity with data between html elements and blutui concepts.
+impactDescription: High Impact (90%) - The Template Engine serves as the critical logic layer, binding HTML elements to Blutui-specific concepts. Strict adherence to this syntax is mandatory for data interactivity; without it, the project will fail to render or process dynamic data.
 tags: canvas, variables, tags, filters, functions, tests, expressions, templating festures
 ---
 
