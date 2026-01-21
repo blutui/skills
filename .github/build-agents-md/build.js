@@ -19,7 +19,7 @@ function buildAgentsMd() {
     
     // Step 1: Generate metadata content
     console.log('📝 Step 1: Generating metadata content...');
-    const tempPath = path.join(skillPath, 'temp-agents.md');
+    const tempPath = path.join(rulesPath, 'temp-agents.md');
     addMetadataToAgentsMd(skillPath, tempPath);
     let agentsContent = fs.readFileSync(tempPath, 'utf8');
     fs.unlinkSync(tempPath); // Clean up temp file
