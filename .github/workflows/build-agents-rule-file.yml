@@ -1,0 +1,31 @@
+name: Build AGENTS.md Rule File
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main  
+
+jobs:
+  build-agents-rule-file:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Build AGENTS.md Rule File
+        run: |  
+          # Sync to R2 - files will be stored preserving directory structure
+          aws s3 sync ./content/ \
+            "s3://${R2_BUCKET}/" \
+            --endpoint-url "https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com" \
+            --exclude "*" \
+            --include "*.md" \
+            --include "*.mdx" \
+            --delete
+      
+      - name: Upload summary
+        run: |
+          md_count=$(find ./content -type f \( -name "*.md" -o -name "*.mdx" \) | wc -l)
+          echo "Uploaded $md_count markdown files from /content to R2 (preserving directory structure)"

@@ -25,4 +25,4 @@ Use Blutui MCP tools to create, retreive and list route patterns.
 
 When using the create_route-pattern tool, the agent must use the list_route-patterns tool and determine a unique route pattern.
 
-Reference: [Link to documentation](https://dev.blutui.com/docs/courier/getting-started)
+Reference: [Link to documentation](https://docs.blutui.com/guides/add-route-patterns)

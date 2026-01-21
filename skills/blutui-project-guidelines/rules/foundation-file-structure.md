@@ -20,4 +20,4 @@ This folder is the primary environment for UI development. Follow these sub-dire
 * "layouts/": Each file in this directory corresponds to content that wraps around multiple pages to provide a persistent UI (e.g., headers and footers). A layout file always extends a template file.
 * Custom Directories (e.g., "components/"): Custom directories added for atomic, reusable UI fragments or any other purposes.
 
-Reference: [Link to documentation](https://dev.blutui.com/docs/courier/getting-started)
+Reference: [Link to documentation](https://docs.blutui.com/docs/getting-started/folder-structure)
