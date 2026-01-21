@@ -21,13 +21,9 @@ function addMetadataToAgentsMd(skillPath, outputPath) {
         agentsContent += `${metadata.abstract}\n\n`;
     }
 
-    agentsContent += `
-  ---
-  **Version:** ${metadata.version}
-  **Organization:** ${metadata.organization}
-  **Date:** ${metadata.date}
-  ---
-  `;
+    agentsContent += `* Version: ${metadata.version}\n`;
+    agentsContent += `* Organization: ${metadata.organization}\n`;
+    agentsContent += `* Date: ${metadata.date}*\n`;
 
     if (metadata.references && metadata.references.length > 0) {
         agentsContent += '**References:**\n';
@@ -38,7 +34,7 @@ function addMetadataToAgentsMd(skillPath, outputPath) {
     }
 
     // Read and append AGENTS.md content if it exists
-    const agentsMdPath = path.join('./', 'AGENTS.md');
+    const agentsMdPath = path.join(outputPath, 'AGENTS.md');
     if (fs.existsSync(agentsMdPath)) {
         const existingAgentsContent = fs.readFileSync(agentsMdPath, 'utf8');
         agentsContent += existingAgentsContent;
@@ -104,7 +100,7 @@ function addRulesContent(rulesPath) {
 
     // Read all files in the rules directory
     const allFiles = fs.readdirSync(rulesPath)
-        .filter(file => file.endsWith('.md') && !file.startsWith('_'));
+        .filter(file => file.endsWith('.md') && !file.startsWith('_') );
 
     // Process files in section order
     sections.forEach(sectionName => {
