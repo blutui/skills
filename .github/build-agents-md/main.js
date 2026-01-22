@@ -2,11 +2,11 @@ const fs = require('fs');
 const path = require('path');
 
 /**
- * Add metadata from skills folder to an AGENTS.md file
+ * Generate metadata content from skills folder
  * @param {string} skillPath - Path to the skill folder containing metadata.json
- * @param {string} outputPath - Path where AGENTS.md should be created
+ * @returns {string} Generated metadata content
  */
-function addMetadataToAgentsMd(skillPath, outputPath) {
+function addMetadataToAgentsMd(skillPath) {
     const metadataPath = path.join(skillPath, 'metadata.json');
 
     if (!fs.existsSync(metadataPath)) {
@@ -33,12 +33,7 @@ function addMetadataToAgentsMd(skillPath, outputPath) {
         agentsContent += '\n';
     }
 
-    // Write to output path
-    const agentsExists = fs.existsSync(outputPath);
-    fs.writeFileSync(outputPath, agentsContent, 'utf8');
-    console.log(`✓ AGENTS.md ${agentsExists ? 'updated' : 'created'} at ${outputPath}`);
-
-    return outputPath;
+    return agentsContent;
 }
 
 /**

@@ -14,15 +14,12 @@ function buildAgentsMd() {
     // Define paths
     const rootDir = path.join(__dirname, '../..');
     const skillPath = path.join(rootDir, 'skills/blutui-project-guidelines');
-    const rulesPath = path.join(skillPath, 'rules');
+    const rulesPath = path.join(skillPath, '/rules');
     const rootAgentsMdPath = path.join(rootDir, 'AGENTS.md');
     
     // Step 1: Generate metadata content
     console.log('📝 Step 1: Generating metadata content...');
-    const tempPath = path.join(rulesPath, 'temp-agents.md');
-    addMetadataToAgentsMd(skillPath, tempPath);
-    let agentsContent = fs.readFileSync(tempPath, 'utf8');
-    fs.unlinkSync(tempPath); // Clean up temp file
+    let agentsContent = addMetadataToAgentsMd(skillPath);
     
     // Step 2: Add rules content
     console.log('\n📦 Step 2: Adding rules content...');
