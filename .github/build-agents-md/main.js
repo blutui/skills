@@ -95,7 +95,7 @@ function addRulesContent(rulesPath) {
             sectionFiles.forEach(file => {
                 const filePath = path.join(rulesPath, file);
                 const content = fs.readFileSync(filePath, 'utf8');
-                rulesContent += content + '\n\n';
+                rulesContent += content + '\n\n\n\n';
             });
         }
     });
