@@ -10,10 +10,9 @@ The Blutui Project guidelines are specifically curated by Blutui maintainers for
 
 
 
-> title: Configuration
-> impact: CRITICAL
-> impactDescription: This configuration file is the core dependency for all Courier operations, Blutui MCP connectivity, and Cassette management. Loss or corruption will halt development workflows and severely degrade system performance. 
-> tags: config, handle, cassette, courier.json, login, mcp
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| Configuration | CRITICAL | This configuration file is the core dependency for all Courier operations, Blutui MCP connectivity, and Cassette management. Loss or corruption will halt development workflows and severely degrade system performance. | config, handle, cassette, courier.json, login, mcp |
 
 ## Configuration (`courier.json`)
 
@@ -38,10 +37,9 @@ courier login --token < token.txt
 **After making any changes to the `courier.json` file, the agent must instruct the user to restart the Blutui MCP server.** 
 
 Reference: [Link to documentation](https://dev.blutui.com/docs/courier/configuration)
-> title: File Structure
-> impact: CRITICAL
-> impactDescription: Structural Integrity - Adherence to the Blutui file structure is mandatory. Deviating from these conventions breaks core system compatibility, rendering the project non-functional and preventing deployment.
-> tags: project, file structure, public, views, assets, pages, layouts, templates, components
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| File Structure | CRITICAL | Structural Integrity - Adherence to the Blutui file structure is mandatory. Deviating from these conventions breaks core system compatibility, rendering the project non-functional and preventing deployment. | project, file structure, public, views, assets, pages, layouts, templates, components |
 
 ## File structure
 
@@ -59,10 +57,9 @@ This folder is the primary environment for UI development. Follow these sub-dire
 * Custom Directories (e.g., "components/"): Custom directories added for atomic, reusable UI fragments or any other purposes.
 
 Reference: [Link to documentation](https://docs.blutui.com/docs/getting-started/folder-structure)
-> title: Form Standards 
-> impact: CRITICAL
-> impactDescription: Strict adherence to Blutui Form Syntax is mandatory. Non-compliant syntax causes silent failures or data submission errors, preventing the form from processing correctly within the ecosystem.
-> tags: form
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| Form Standards | CRITICAL | Strict adherence to Blutui Form Syntax is mandatory. Non-compliant syntax causes silent failures or data submission errors, preventing the form from processing correctly within the ecosystem. | form |
 
 ## Blutui Form standards and examples
 
@@ -128,10 +125,9 @@ Reference: [Link to documentation](https://dev.blutui.com/guides/create-form)
 
 
 
-> title: Routing Pattern Standards 
-> impact: CRITICAL
-> impactDescription: Strict adherence to Blutui Route Pattern standards is mandatory. Non-compliant routing triggers 500 Server Errors and breaks site navigation, leading to total loss of user access.
-> tags: route, route pattern
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| Routing Pattern Standards | CRITICAL | Strict adherence to Blutui Route Pattern standards is mandatory. Non-compliant routing triggers 500 Server Errors and breaks site navigation, leading to total loss of user access. | route, route pattern |
 
 ## Routing Pattern Standard
 
@@ -155,10 +151,9 @@ Use Blutui MCP tools to create, retreive and list route patterns.
 When using the create_route-pattern tool, the agent must use the list_route-patterns tool and determine a unique route pattern.
 
 Reference: [Link to documentation](https://docs.blutui.com/guides/add-route-patterns)
-> title: Templates and Layouts
-> impact: CRITICAL
-> impactDescription: Functional Impact - Blutui templates and layouts govern core project logic. Deviating from these structures results in broken inheritance and rendering failures, preventing the project from functioning as intended.
-> tags: project, file structure, views, templates, pages, layouts
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| Templates and Layouts | CRITICAL | Functional Impact - Blutui templates and layouts govern core project logic. Deviating from these structures results in broken inheritance and rendering failures, preventing the project from functioning as intended. | project, file structure, views, templates, pages, layouts |
 
 ## Layouts and Templates
 
@@ -175,10 +170,9 @@ Reference: [Link to documentation](https://docs.blutui.com/guides/add-route-patt
 - Always place layout files in the `views/layouts` directory.
 
 Reference: [Link to documentation - How to create a Layout](https://docs.blutui.com/guides/create-layout) 
-> title: MCP
-> impact: HIGH
-> impactDescription: Efficiency Multiplier - The Blutui MCP grants agents direct access to project-specific tooling, streamlining complex workflows and increasing development velocity by up to 300%.
-> tags: mcp, tools, search, documentation
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| MCP | HIGH | Efficiency Multiplier - The Blutui MCP grants agents direct access to project-specific tooling, streamlining complex workflows and increasing development velocity by up to 300%. | mcp, tools, search, documentation |
 
 ## Blutui MCP
 
@@ -205,10 +199,9 @@ Reference:
 
 - [Link to documentation - Connect to Blutui MCP](https://docs.blutui.com/docs/getting-started/agentic-development)
 - [Link to documentation - Connect to Figma MCP](https://dev.blutui.com/guides/figma-to-blutui)
-> title: Canvas - Template Engine
-> impact: CRITICAL
-> impactDescription: High Impact (90%) - The Template Engine serves as the critical logic layer, binding HTML elements to Blutui-specific concepts. Strict adherence to this syntax is mandatory for data interactivity; without it, the project will fail to render or process dynamic data.
-> tags: canvas, variables, tags, filters, functions, tests, expressions, templating festures
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| Canvas - Template Engine | CRITICAL | High Impact (90%) - The Template Engine serves as the critical logic layer, binding HTML elements to Blutui-specific concepts. Strict adherence to this syntax is mandatory for data interactivity; without it, the project will fail to render or process dynamic data. | canvas, variables, tags, filters, functions, tests, expressions, templating festures |
 
 ## Canvas - Template Engine
 
@@ -246,10 +239,9 @@ Reference:
 - Use the search_blutui_documentation tool in Blutui MCP to find more information on available tags, filters, functions, tests, expressions and other templating festures.
 
 Reference: [Link to documentation](https://dev.blutui.com/guides/what-is-blutui-canvas)
-> title: Courier
-> impact: CRITICAL 
-> impactDescription: Without Courier CLI, project updates cannot be pushed to the Blutui platform. It is essential for continuous integration, version synchronization, and maintaining a functional development lifecycle.
-> tags: courier, command-line interface tool
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| Courier | CRITICAL | Without Courier CLI, project updates cannot be pushed to the Blutui platform. It is essential for continuous integration, version synchronization, and maintaining a functional development lifecycle. | courier, command-line interface tool |
 
 ## Courier
 
@@ -260,20 +252,18 @@ Courier is a command-line interface tool to interact with a project. It allows u
 Courier must be installed and configured on the user's machine to enable full functionality. `courier version` command can be used to check if the user has courier installed.
 
 Reference: [Link to documentation](https://dev.blutui.com/docs/courier/getting-started)
-> title: Cassettes - Project Version Control
-> impact: LOW
-> impactDescription: Version Control Impact - High. This configuration is critical only during project version transitions. Incorrect setup will block the ability to switch versions or result in environment mismatches during a migration.
-> tags: cassette, version control
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| Cassettes - Project Version Control | LOW | Version Control Impact - High. This configuration is critical only during project version transitions. Incorrect setup will block the ability to switch versions or result in environment mismatches during a migration. | cassette, version control |
 
 ## Cassettes 
 
 Cassettes provide version control for a project. Each project can have multiple Cassettes. 
 
 Reference: [Link to documentation](https://dev.blutui.com/docs/cassettes/getting-started)
-> title: Collections
-> impact: CRITICAL
-> impactDescription: High Impact (90%) - This section governs the binding between frontend elements and Blutui Data Collections. Failure to configure this correctly results in broken dynamic content and prevents the UI from interacting with stored project data.
-> tags: data, dynamic, data structure, collections
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| Collections | CRITICAL | High Impact (90%) - This section governs the binding between frontend elements and Blutui Data Collections. Failure to configure this correctly results in broken dynamic content and prevents the UI from interacting with stored project data. | data, dynamic, data structure, collections |
 
 ## Collections
 
@@ -310,15 +300,9 @@ To create, retreive and list collection or collection entries or links, the agen
 ```
 
 Reference: [Link to documentation](https://dev.blutui.com/docs/collections/getting-started)
-| title | impact | impactDescription | tags |
+| Title | Impact | Impact Description | Tags |
 |-------|--------|-------------------|------|
 | Canopy | MEDIUM | Editor Integration - Critical for CMS-to-Frontend interactivity. Canopy allows developers to register components as editable assets; failure to implement correctly disables the in-page editing interface for the user. | in-page editor |
----
-title: Canopy
-impact: MEDIUM
-impactDescription: Editor Integration - Critical for CMS-to-Frontend interactivity. Canopy allows developers to register components as editable assets; failure to implement correctly disables the in-page editing interface for the user.
-tags: in-page editor
----
 
 ## Canopy
 
