@@ -74,15 +74,7 @@ function addRulesContent(rulesPath) {
     };
 
     // Define section order
-    const sections = [
-        'foundation',
-        'mcp',
-        'canvas',
-        'courier',
-        'cassettes',
-        'collections',
-        'canopy'
-    ];
+    const sections = Object.keys(sectionPrefixMap);
 
     let rulesContent = "";
 
