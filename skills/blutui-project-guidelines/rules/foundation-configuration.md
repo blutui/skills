@@ -1,9 +1,7 @@
----
-title: Configuration
-impact: CRITICAL
-impactDescription: This configuration file is the core dependency for all Courier operations, Blutui MCP connectivity, and Cassette management. Loss or corruption will halt development workflows and severely degrade system performance. 
-tags: config, handle, cassette, courier.json, login, mcp
----
+> title: Configuration
+> impact: CRITICAL
+> impactDescription: This configuration file is the core dependency for all Courier operations, Blutui MCP connectivity, and Cassette management. Loss or corruption will halt development workflows and severely degrade system performance. 
+> tags: config, handle, cassette, courier.json, login, mcp
 
 ## Configuration (`courier.json`)
 

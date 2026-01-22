@@ -1,9 +1,7 @@
----
-title: Collections
-impact: CRITICAL
-impactDescription: High Impact (90%) - This section governs the binding between frontend elements and Blutui Data Collections. Failure to configure this correctly results in broken dynamic content and prevents the UI from interacting with stored project data.
-tags: data, dynamic, data structure, collections
----
+> title: Collections
+> impact: CRITICAL
+> impactDescription: High Impact (90%) - This section governs the binding between frontend elements and Blutui Data Collections. Failure to configure this correctly results in broken dynamic content and prevents the UI from interacting with stored project data.
+> tags: data, dynamic, data structure, collections
 
 ## Collections
 
