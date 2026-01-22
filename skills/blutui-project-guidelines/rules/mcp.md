@@ -1,7 +1,6 @@
-> title: MCP
-> impact: HIGH
-> impactDescription: Efficiency Multiplier - The Blutui MCP grants agents direct access to project-specific tooling, streamlining complex workflows and increasing development velocity by up to 300%.
-> tags: mcp, tools, search, documentation
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| MCP | HIGH | Efficiency Multiplier - The Blutui MCP grants agents direct access to project-specific tooling, streamlining complex workflows and increasing development velocity by up to 300%. | mcp, tools, search, documentation |
 
 ## Blutui MCP
 

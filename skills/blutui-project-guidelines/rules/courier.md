@@ -1,7 +1,6 @@
-> title: Courier
-> impact: CRITICAL 
-> impactDescription: Without Courier CLI, project updates cannot be pushed to the Blutui platform. It is essential for continuous integration, version synchronization, and maintaining a functional development lifecycle.
-> tags: courier, command-line interface tool
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| Courier | CRITICAL | Without Courier CLI, project updates cannot be pushed to the Blutui platform. It is essential for continuous integration, version synchronization, and maintaining a functional development lifecycle. | courier, command-line interface tool |
 
 ## Courier
 

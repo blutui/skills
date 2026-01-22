@@ -1,7 +1,6 @@
-> title: Cassettes - Project Version Control
-> impact: LOW
-> impactDescription: Version Control Impact - High. This configuration is critical only during project version transitions. Incorrect setup will block the ability to switch versions or result in environment mismatches during a migration.
-> tags: cassette, version control
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| Cassettes - Project Version Control | LOW | Version Control Impact - High. This configuration is critical only during project version transitions. Incorrect setup will block the ability to switch versions or result in environment mismatches during a migration. | cassette, version control |
 
 ## Cassettes 
 
