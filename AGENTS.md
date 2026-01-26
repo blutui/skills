@@ -53,10 +53,22 @@ Store assets including complied JS/CSS, images and static PDFs.
 
 This folder is the primary environment for UI development. Follow these sub-directory conventions:
 
-* "pages/": Each file in this directory corresponds to a specific URI or site section (e.g., "about-us.html") with unique page content or layout-specific overrides. Each file path maps to a URL route. To include a directory in the route path, create an index.html file within that directory. Other page files can be named as desired.
-* "templates/": Has files with reusable design bases and system views. Key files include "default.html" (The foundational structure for the site.) and "404.html"  (The error state page).
+* "templates/": Has files with reusable design bases and system views. 
+   * "default.html": The foundational template for a Blutui project. This file forms the outermost structure of a Blutui project. It features essential sections like the head, where style definitions reside, and the body, where content gets placed. The most efficient way to build upon this file is by using inheritance, capitalising on the block tag.
+   * "404.html": A template for handling "Page Not Found" errors.
 * "layouts/": Each file in this directory corresponds to content that wraps around multiple pages to provide a persistent UI (e.g., headers and footers). A layout file always extends a template file.
 * Custom Directories (e.g., "components/"): Custom directories added for atomic, reusable UI fragments or any other purposes.
+
+Develop the project using a component-first approach. By modularizing the front-end logic into reusable blocks, minimize duplicate work and ensure that design updates stay consistent across all project views.
+
+#### Understanding inheritence in Blutui
+
+Hierarchy Instruction:
+
+* Parent: templates/default.html (Defines the overall structure).
+* Child: views/pages/index.html (Provides specific page content).
+
+To implement this, ensure the child file begins with the `extends` declaration. Map your content to the parent's placeholders by wrapping your HTML in matching `block` names. This ensures precise placement of CSS and body content.
 
 Reference: [Link to documentation](https://docs.blutui.com/docs/getting-started/folder-structure)
 
@@ -232,8 +244,146 @@ Canvas serves as the template engine for Blutui, combining HTML, CSS, and JavaSc
 ```
 
 - There are two kinds of delimiters: 
-    - {% ...> : Used for executing statements.
+    - {% ... %}: Used for executing statements.
     - {{ ... }} : Used for printing values to the rendered page.
+
+### Including other templates
+
+The `include` function is useful to include a template and return the rendered content of that template into the current one.
+
+```canvas
+{{ include('sidebar.html') }}
+```
+
+Included templates automatically inherit the data context of their parent. This ensures that any variables defined in your main template are immediately accessible within the included file without extra configuration.
+
+```canvas
+{% for box in boxes %}
+  {{ include('render_box.html') }}
+{% endfor %}
+// The included template render_box.html is able to access the box variable.
+```
+
+Templates in subdirectories can be accessed with a slash:
+
+```canvas
+{{ include('sections/articles/sidebar.html') }}
+```
+
+### Blocks tag: `blocks`
+
+Blocks are used for inheritance and act as placeholders and replacements at the same time.
+
+A block provides a way to change how a certain part of a template is rendered but it does not interfere in any way with the logic around it.
+
+Canvas allows to add the name of the block after the end tag for better readability.
+
+**Example:** Incorrect way to use blocks
+
+```canvas
+{# base.html #}
+
+{% for post in posts %}
+  {% block post %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.body }}</p>
+  {% endblock %}
+{% endfor %}
+```
+
+**Example:** Correct way to use blocks 
+
+A child template looks like this
+
+```canvas
+{# child.html #}
+
+{% extends 'base.html' %}
+
+{% block post %}
+  <article>
+    <header>{{ post.title }}</header>
+    <section>{{ post.text }}</section>
+  </article>
+{% endblock %}
+```
+
+A parent template looks like this
+
+```canvas
+{% for post in posts %}
+  <article>
+    <header>{{ post.title }}</header>
+    <section>{{ post.text }}</section>
+  </article>
+{% endfor %}
+```
+
+**Example:** a block included within an if statement
+
+```canvas
+{% if posts is empty %}
+  {% block head %}
+    {{ parent() }}
+    // parent function renders contents in the parent block
+
+    <meta name="robots" content="noindex, follow">
+  {% endblock head %}
+{% endif %}
+```
+
+### Template Inheritence
+
+Maximize your workflow with template inheritance. Instead of duplicating code, build a single base template for common site features in `views/templates/defualt.html`.  Use `blocks` to define areas where child templates can inject specific content, ensuring a consistent structure across every page.
+
+**Example**: Define a base.html template for a two-column page.
+
+```canvas
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head %}
+      <link rel="stylesheet" href="style.css" />
+      <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+  </head>
+
+  <body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+        &copy; Copyright 2011 by <a href="http://domain.invalid/">you</a>.
+      {% endblock %}
+    </div>
+  </body>
+</html>
+```
+
+In this example, the block tags define four blocks that child templates can fill in. All the block tag does is to tell the template engine that a child template may override those portions of the template.
+
+A child template might look like this:
+
+```canvas
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block head %}
+  {{ parent() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h1>Index</h1>
+  <p class="important">
+    Welcome to my awesome homepage.
+  </p>
+{% endblock %}
+```
+
+The `extends` tag can be used to extend a template from another one. Canvas does not support multiple inheritance.
 
 - Use the search_blutui_documentation tool in Blutui MCP to find more information on available tags, filters, functions, tests, expressions and other templating festures.
 
