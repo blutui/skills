@@ -1,9 +1,6 @@
----
-title: File Structure
-impact: CRITICAL
-impactDescription: Structural Integrity - Adherence to the Blutui file structure is mandatory. Deviating from these conventions breaks core system compatibility, rendering the project non-functional and preventing deployment.
-tags: project, file structure, public, views, assets, pages, layouts, templates, components
----
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| File Structure | CRITICAL | Structural Integrity - Adherence to the Blutui file structure is mandatory. Deviating from these conventions breaks core system compatibility, rendering the project non-functional and preventing deployment. | project, file structure, public, views, assets, pages, layouts, templates, components |
 
 ## File structure
 

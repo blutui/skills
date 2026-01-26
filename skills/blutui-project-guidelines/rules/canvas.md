@@ -1,9 +1,6 @@
----
-title: Canvas - Template Engine
-impact: CRITICAL
-impactDescription: High Impact (90%) - The Template Engine serves as the critical logic layer, binding HTML elements to Blutui-specific concepts. Strict adherence to this syntax is mandatory for data interactivity; without it, the project will fail to render or process dynamic data.
-tags: canvas, variables, tags, filters, functions, tests, expressions, templating festures
----
+| Title | Impact | Impact Description | Tags |
+|-------|--------|-------------------|------|
+| Canvas - Template Engine | CRITICAL | High Impact (90%) - The Template Engine serves as the critical logic layer, binding HTML elements to Blutui-specific concepts. Strict adherence to this syntax is mandatory for data interactivity; without it, the project will fail to render or process dynamic data. | canvas, variables, tags, filters, functions, tests, expressions, templating festures |
 
 ## Canvas - Template Engine
 

@@ -1,12 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-/**
- * Add metadata from skills folder to an AGENTS.md file
- * @param {string} skillPath - Path to the skill folder containing metadata.json
- * @param {string} outputPath - Path where AGENTS.md should be created
- */
-function addMetadataToAgentsMd(skillPath, outputPath) {
+function getMetadataContent(skillPath) {
     const metadataPath = path.join(skillPath, 'metadata.json');
 
     if (!fs.existsSync(metadataPath)) {
@@ -33,41 +28,10 @@ function addMetadataToAgentsMd(skillPath, outputPath) {
         agentsContent += '\n';
     }
 
-    // Write to output path
-    const agentsExists = fs.existsSync(outputPath);
-    fs.writeFileSync(outputPath, agentsContent, 'utf8');
-    console.log(`✓ AGENTS.md ${agentsExists ? 'updated' : 'created'} at ${outputPath}`);
-
-    return outputPath;
+    return agentsContent;
 }
 
-/**
- * Copy the created AGENTS.md file to the root directory
- * @param {string} sourcePath - Path to the AGENTS.md file
- * @param {string} rootDir - Root directory path
- */
-function addAgentsMdToRoot(sourcePath, rootDir) {
-    const destinationPath = path.join(rootDir, 'AGENTS.md');
-
-    if (!fs.existsSync(sourcePath)) {
-        throw new Error(`Source file not found at ${sourcePath}`);
-    }
-
-    const destExists = fs.existsSync(destinationPath);
-    fs.copyFileSync(sourcePath, destinationPath);
-    console.log(`✓ AGENTS.md ${destExists ? 'updated' : 'copied to'} ${destinationPath}`);
-
-    return destinationPath;
-}
-
-/**
- * Add rules content from skills/rules folder based on _sections.md order
- * @param {string} rulesPath - Path to the rules folder containing _sections.md
- * @returns {string} Combined rules content
- */
-function addRulesContent(rulesPath) {
-
-    // Map section names to file prefixes
+function getRulesContent(rulesPath) {
     const sectionPrefixMap = {
         'Foundation': 'foundation',
         'Model Context Protocol (MCP)': 'mcp',
@@ -78,37 +42,25 @@ function addRulesContent(rulesPath) {
         'Canopy': 'canopy'
     };
 
-    // Define section order
-    const sections = [
-        'foundation',
-        'mcp',
-        'canvas',
-        'courier',
-        'cassettes',
-        'collections',
-        'canopy'
-    ];
+    const sections = Object.keys(sectionPrefixMap);
 
     let rulesContent = "";
 
-    // Read all files in the rules directory
     const allFiles = fs.readdirSync(rulesPath)
         .filter(file => file.endsWith('.md') && !file.startsWith('_') );
 
-    // Process files in section order
     sections.forEach(sectionName => {
         const prefix = sectionPrefixMap[sectionName];
         if (!prefix) return;
 
-        // Find all files that start with this prefix
         const sectionFiles = allFiles.filter(file => file.startsWith(prefix));
 
         if (sectionFiles.length > 0) {
-
             sectionFiles.forEach(file => {
                 const filePath = path.join(rulesPath, file);
                 const content = fs.readFileSync(filePath, 'utf8');
                 rulesContent += content + '\n\n';
+                rulesContent += `\n\n`;
             });
         }
     });
@@ -117,7 +69,6 @@ function addRulesContent(rulesPath) {
 }
 
 module.exports = {
-    addMetadataToAgentsMd,
-    addAgentsMdToRoot,
-    addRulesContent
+    getMetadataContent,
+    getRulesContent
 };
