@@ -223,7 +223,7 @@ Reference:
 
 ## Canvas - Template Engine
 
-**Canvas** is the template engine for Blutui that allows to build custom looks and feels for projects using a mix of HTML, CSS, JavaScript, and Canvas logic.
+Canvas serves as the template engine for Blutui, combining HTML, CSS, and JavaScript with unique Canvas logic to create fully customized project designs.
 
 - The template is a regular text file. It can generate any text-based format (HTML, XML, CSV, LaTeX, etc.). The file extension is ".canvas".
 - A template contains variables, tags, filters, functions, tests, expressions and other templating festures, which get replaced with values when the template is evaluated, and tags, which control the template's logic.
@@ -282,7 +282,11 @@ Reference: [Link to documentation](https://dev.blutui.com/docs/courier/getting-s
 
 ## Cassettes 
 
-Cassettes provide version control for a project. Each project can have multiple Cassettes. 
+Blutui Cassettes function as a version control system for your front-end logic, allowing you to manage and toggle between various website designs within a single project. 
+
+Each project can have multiple Cassettes. 
+
+To switch cassettes, update the cassette property within the `courier.json` file. If this property is missing or undefined, prompt the user to provide the specific cassette handle.
 
 Reference: [Link to documentation](https://dev.blutui.com/docs/cassettes/getting-started)
 
@@ -296,12 +300,11 @@ Reference: [Link to documentation](https://dev.blutui.com/docs/cassettes/getting
 
 Collections are the primary method for managing structured data within Blutui that define reusable data schemas using a wide range of field types. 
 
-- Each collection must have a unique handle. The agent must check if the a handle exists, prior to creating a new collection.
+- Unique handles are mandatory for all collections. The agent must validate handle availability before initiating the creation process.
 - The available field types are: "text", "textarea", "richtext", "checkbox", "radio", "select", "email", "phone", "url", "date", "time", "date-time", "color", "file", "number" 
 - Do not add custom field types.
-- A collection entry must be created to add data to a collection.
 
-Use a Collection whenever you need to add data that share the same structure. 
+Collections are designed for structured data modeling. Implement a Collection whenever you need to store multiple entries that share a consistent architecture (e.g., matching keys or data types) to ensure efficient querying and rendering.
 
 In the case, when a collection has a some connection to another collection, the agent can look into linking collections using the search_blutui_documentation mcp tool.
 
