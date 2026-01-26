@@ -60,7 +60,7 @@ function getRulesContent(rulesPath) {
                 const filePath = path.join(rulesPath, file);
                 const content = fs.readFileSync(filePath, 'utf8');
                 rulesContent += content + '\n\n';
-                rulesContent += `\n\n`;
+                // rulesContent += `\n\n`;
             });
         }
     });
