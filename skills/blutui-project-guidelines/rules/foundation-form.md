@@ -53,15 +53,3 @@ Ensure your `views` directory is organized as follows:
 - Always transmit field types to the MCP in lowercase format.
 
 Reference: [Link to documentation](https://dev.blutui.com/guides/create-form)
-
-
-
-
-
-
-
-
-
-
-
-
