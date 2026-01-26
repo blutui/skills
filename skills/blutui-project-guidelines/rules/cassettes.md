@@ -6,7 +6,7 @@
 
 Blutui Cassettes function as a version control system for your front-end logic, allowing you to manage and toggle between various website designs within a single project. 
 
-Each project can have multiple Cassettes. 
+Each project can have multiple cassettes. 
 
 To switch cassettes, update the cassette property within the `courier.json` file. If this property is missing or undefined, prompt the user to provide the specific cassette handle.
 
