@@ -232,7 +232,7 @@ Canvas serves as the template engine for Blutui, combining HTML, CSS, and JavaSc
 
   <body>
     <ul id="navigation">
-      {% for item in navigation>
+      {% for item in navigation>%}
         <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
       {% endfor %}
     </ul>
