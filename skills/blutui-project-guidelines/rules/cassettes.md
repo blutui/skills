@@ -7,6 +7,10 @@ tags: cassette, version control
 
 ## Cassettes 
 
-Cassettes provide version control for a project. Each project can have multiple Cassettes. 
+Blutui Cassettes function as a version control system for your front-end logic, allowing you to manage and toggle between various website designs within a single project. 
+
+Each project can have multiple Cassettes. 
+
+To switch cassettes, update the cassette property within the `courier.json` file. If this property is missing or undefined, prompt the user to provide the specific cassette handle.
 
 Reference: [Link to documentation](https://dev.blutui.com/docs/cassettes/getting-started)
