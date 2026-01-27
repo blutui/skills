@@ -15,7 +15,7 @@ This folder is the primary environment for UI development. Follow these sub-dire
 * "templates/": Has files with reusable design bases and system views. 
    * "default.html": The foundational template for a Blutui project. This file forms the outermost structure of a Blutui project. It features essential sections like the head, where style definitions reside, and the body, where content gets placed. The most efficient way to build upon this file is by using inheritance, capitalising on the block tag.
    * "404.html": A template for handling "Page Not Found" errors.
-* "layouts/": Each file in this directory corresponds to content that wraps around multiple pages to provide a persistent UI (e.g., headers and footers). A layout file always extends a template file.
+* "layouts/": The layouts folder is the primary way to create pages in a project.
 * Custom Directories (e.g., "components/"): Custom directories added for atomic, reusable UI fragments or any other purposes.
 
 Develop the project using a component-first approach. By modularizing the front-end logic into reusable blocks, minimize duplicate work and ensure that design updates stay consistent across all project views.
