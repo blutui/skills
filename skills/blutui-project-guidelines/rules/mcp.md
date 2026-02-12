@@ -10,6 +10,16 @@
 - The `retrieve_*` tools (such as `retrieve_page`, `retrieve_forms`, etc.) can be used to retrieve a single resources within the project.
 - The `create_*` tools (such as `create_page`, `create_form`, etc.) can be used to create new resources within the project.
 
+### Page Creation Workflow
+
+When creating a new page, the agent must follow this exact sequence:
+
+1. **Create the layout file** in `views/layouts/` (e.g., `views/layouts/about.html`). The layout should extend a template and include components.
+2. **Run `list_pages`** to check for existing pages and avoid duplicates.
+3. **Use the `create_page` MCP tool** to register the page in the Blutui dashboard, setting the layout path relative to `views/` (e.g., `layouts/about.html`).
+
+The agent must never skip the MCP step. A layout file without a corresponding page in the dashboard will not be accessible on the site.
+
 ### Search Documentation (Critically Important)
 
 - Blutui Courier MCP comes with a powerful `search_blutui_documentation` tool you should use before any other approaches.
@@ -18,7 +28,7 @@
 
 ### Handle Property Standards
 
-- **Pre-flight Check:** For the `create_form` or `create_menu` tool, always execute the corresponding `list_*` tool first.
+- **Pre-flight Check:** For the `create_page`, `create_form` or `create_menu` tool, always execute the corresponding `list_*` tool first.
 - **Validation:** Compare the user's desired `handle` against the `handle` properties in the retrieved list.
 - **Error Prevention:** If a match is found, do not call the creation tool. Instead, notify the user of the conflict.
 - **Offline Mode:** If the `blutui` MCP tools are unreachable, you must ask the user for the specific `handle` property in the before suggesting a configuration.
