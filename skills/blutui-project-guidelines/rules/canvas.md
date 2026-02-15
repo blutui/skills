@@ -58,6 +58,14 @@ Templates in subdirectories can be accessed with a slash:
 {{ include('sections/articles/sidebar.html') }}
 ```
 
+Use `include` to pull reusable components from the `views/components/` directory into layouts:
+
+```canvas
+{{ include('components/header.html') }}
+{{ include('components/hero.html') }}
+{{ include('components/footer.html') }}
+```
+
 ### Blocks tag: `blocks`
 
 Blocks are used for inheritance and act as placeholders and replacements at the same time.
@@ -174,5 +182,54 @@ A child template might look like this:
 The `extends` tag can be used to extend a template from another one. Canvas does not support multiple inheritance.
 
 - Use the search_blutui_documentation tool in Blutui MCP to find more information on available tags, filters, functions, tests, expressions and other templating festures.
+
+### Composing Layouts with Components
+
+Always follow the 3-tier pattern when building pages:
+
+1. **Template** (`templates/default.html`) — Defines the overall HTML structure with `block` placeholders.
+2. **Layout** (`layouts/about.html`) — Extends the template using `{% extends %}`, fills `block` content, and includes components.
+3. **Component** (`components/hero.html`) — A reusable UI fragment included via `{{ include() }}`.
+
+**Example:** Complete 3-tier composition
+
+Template (`views/templates/default.html`):
+```canvas
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head %}
+      <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+  </head>
+  <body>
+    {{ include('components/header.html') }}
+    {% block content %}{% endblock %}
+    {{ include('components/footer.html') }}
+  </body>
+</html>
+```
+
+Component (`views/components/hero.html`):
+```canvas
+<section>
+  <h1>{{ heading }}</h1>
+  <p>{{ subheading }}</p>
+</section>
+```
+
+Layout (`views/layouts/about.html`):
+```canvas
+{% extends 'templates/default.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+  {{ include('components/hero.html') }}
+  <article>
+    <p>Page content goes here.</p>
+  </article>
+{% endblock %}
+```
 
 Reference: [Link to documentation](https://dev.blutui.com/guides/what-is-blutui-canvas)

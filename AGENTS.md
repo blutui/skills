@@ -41,34 +41,46 @@ Reference: [Link to documentation](https://dev.blutui.com/docs/courier/configura
 
 | Title | Impact | Impact Description | Tags |
 |-------|--------|-------------------|------|
-| File Structure | CRITICAL | Structural Integrity - Adherence to the Blutui file structure is mandatory. Deviating from these conventions breaks core system compatibility, rendering the project non-functional and preventing deployment. | project, file structure, public, views, assets, pages, layouts, templates, components |
+| File Structure | CRITICAL | Structural Integrity - Adherence to the Blutui file structure is mandatory. Deviating from these conventions breaks core system compatibility, rendering the project non-functional and preventing deployment. | project, file structure, public, views, assets, layouts, templates, components |
 
 ## File structure
 
 ### "/public" directory
 
-Store assets including complied JS/CSS, images and static PDFs.
+Store assets including compiled JS/CSS, images and static PDFs.
 
 ### "/views" directory
 
 This folder is the primary environment for UI development. Follow these sub-directory conventions:
 
-* "templates/": Has files with reusable design bases and system views. 
+* "templates/": Has files with reusable design bases and system views.
    * "default.html": The foundational template for a Blutui project. This file forms the outermost structure of a Blutui project. It features essential sections like the head, where style definitions reside, and the body, where content gets placed. The most efficient way to build upon this file is by using inheritance, capitalising on the block tag.
    * "404.html": A template for handling "Page Not Found" errors.
-* "layouts/": The layouts folder is the primary way to create pages in a project.
-* Custom Directories (e.g., "components/"): Custom directories added for atomic, reusable UI fragments or any other purposes.
+* "layouts/": The layouts folder is the **only** way to create pages in a project. Each layout file maps to a page registered via the Blutui dashboard or MCP tools. **Do not create a `pages/` directory.** All page content belongs in layout files.
+* "components/": Contains atomic, reusable UI fragments. Always create components for repeated UI elements (headers, footers, hero sections, CTAs, cards, etc.) and include them in layouts using `{{ include('components/filename.html') }}`.
 
-Develop the project using a component-first approach. By modularizing the front-end logic into reusable blocks, minimize duplicate work and ensure that design updates stay consistent across all project views.
+Develop the project using a **component-first approach**. Always break the UI into reusable components in `views/components/`. Include components in layouts using `{{ include() }}` and use `{% block %}` tags for template inheritance. This minimizes duplicate work and ensures design updates stay consistent across all project views.
 
-#### Understanding inheritence in Blutui
+#### Understanding inheritance in Blutui
 
-Hierarchy Instruction:
+Hierarchy:
 
 * Parent: templates/default.html (Defines the overall structure).
-* Child: views/pages/index.html (Provides specific page content).
+* Child: layouts/index.html (Extends the template and provides specific page content).
 
-To implement this, ensure the child file begins with the `extends` declaration. Map your content to the parent's placeholders by wrapping your HTML in matching `block` names. This ensures precise placement of CSS and body content.
+To implement this, ensure the child layout file begins with the `{% extends 'templates/default.html' %}` declaration. Map your content to the parent's placeholders by wrapping your HTML in matching `block` names. Include reusable components within those blocks.
+
+#### Style System Detection
+
+Before generating any HTML or component code, the agent must detect the project's existing style system:
+
+1. Check for `tailwind.config.*` or `postcss.config.*` files in the project root.
+2. Check for CSS framework CDN links (e.g., Bootstrap, Bulma) in `views/templates/default.html`.
+3. Check for CSS files in the `/public` directory.
+
+- If a style system is found (e.g., TailwindCSS), **always use its utility classes and conventions** in all generated HTML and components.
+- If no style system is detected, **ask the user** which style approach they want before generating any HTML.
+- Never generate unstyled or bare HTML when a style system is available in the project.
 
 Reference: [Link to documentation](https://docs.blutui.com/docs/getting-started/folder-structure)
 
@@ -160,22 +172,50 @@ Reference: [Link to documentation - How do I use route patterns in my project?](
 
 | Title | Impact | Impact Description | Tags |
 |-------|--------|-------------------|------|
-| Templates and Layouts | CRITICAL | Functional Impact - Blutui templates and layouts govern core project logic. Deviating from these structures results in broken inheritance and rendering failures, preventing the project from functioning as intended. | project, file structure, views, templates, pages, layouts |
+| Templates and Layouts | CRITICAL | Functional Impact - Blutui templates and layouts govern core project logic. Deviating from these structures results in broken inheritance and rendering failures, preventing the project from functioning as intended. | project, file structure, views, templates, layouts, components |
 
 ## Layouts and Templates
 
 ### Templates
 
-- A template defines the overall structure of the project, including common elements like headers, footers, and navigation menus used to provide a consistent look and feel across multiple pages in a project. 
+- A template defines the overall structure of the project, including common elements like headers, footers, and navigation menus used to provide a consistent look and feel across multiple pages in a project.
 - A template can be extended by another template file but not a layout.
 
 ### Layouts
 
-- The layouts folder is the primary way to create pages in Blutui. The user must create a page in the dashboard and link it to a specific layout file. 
-- When using the `layout`, `template`, `post_layout` or `blog_layout` parameters in any Blutui MCP tool, make sure the layout file path is relative to the `views` directory (e.g., `layouts/about.html`, not `views/layouts/about.html`). 
+- Layouts are the **only** way to create pages in Blutui. Each layout file in `views/layouts/` corresponds to a page created via the Blutui dashboard or MCP tools.
+- **Never create files in a `pages/` directory.** The `pages/` directory must be ignored entirely. All page content lives in layout files.
+- When using the `layout`, `template`, `post_layout` or `blog_layout` parameters in any Blutui MCP tool, make sure the layout file path is relative to the `views` directory (e.g., `layouts/about.html`, not `views/layouts/about.html`).
 - Always place layout files in the `views/layouts` directory.
 
-Reference: [Link to documentation - How to create a Layout](https://docs.blutui.com/guides/create-layout) 
+### Page Creation Workflow
+
+Follow these steps every time a new page is needed:
+
+1. **Check for the layouts folder:** If `views/layouts/` does not exist, create it. If it already exists, proceed.
+2. **Create the layout file:** Create a new `.html` file inside `views/layouts/` (e.g., `views/layouts/about.html`).
+3. **Extend a template:** The layout must extend a template using `{% extends 'templates/default.html' %}`.
+4. **Build with components:** Create reusable UI fragments in `views/components/` and include them in the layout using `{{ include('components/hero.html') }}`.
+5. **Register the page via MCP:** Use the Blutui MCP `create_page` tool to create the page in the dashboard, setting the layout path relative to `views/` (e.g., `layouts/about.html`).
+
+**Example:** A layout file at `views/layouts/about.html`
+
+```canvas
+{% extends 'templates/default.html' %}
+
+{% block content %}
+  {{ include('components/hero.html') }}
+
+  <section>
+    <h1>About Us</h1>
+    <p>Welcome to our about page.</p>
+  </section>
+
+  {{ include('components/cta.html') }}
+{% endblock %}
+```
+
+Reference: [Link to documentation - How to create a Layout](https://docs.blutui.com/guides/create-layout)
 
 
 | Title | Impact | Impact Description | Tags |
@@ -190,6 +230,16 @@ Reference: [Link to documentation - How to create a Layout](https://docs.blutui.
 - The `retrieve_*` tools (such as `retrieve_page`, `retrieve_forms`, etc.) can be used to retrieve a single resources within the project.
 - The `create_*` tools (such as `create_page`, `create_form`, etc.) can be used to create new resources within the project.
 
+### Page Creation Workflow
+
+When creating a new page, the agent must follow this exact sequence:
+
+1. **Create the layout file** in `views/layouts/` (e.g., `views/layouts/about.html`). The layout should extend a template and include components.
+2. **Run `list_pages`** to check for existing pages and avoid duplicates.
+3. **Use the `create_page` MCP tool** to register the page in the Blutui dashboard, setting the layout path relative to `views/` (e.g., `layouts/about.html`).
+
+The agent must never skip the MCP step. A layout file without a corresponding page in the dashboard will not be accessible on the site.
+
 ### Search Documentation (Critically Important)
 
 - Blutui Courier MCP comes with a powerful `search_blutui_documentation` tool you should use before any other approaches.
@@ -198,7 +248,7 @@ Reference: [Link to documentation - How to create a Layout](https://docs.blutui.
 
 ### Handle Property Standards
 
-- **Pre-flight Check:** For the `create_form` or `create_menu` tool, always execute the corresponding `list_*` tool first.
+- **Pre-flight Check:** For the `create_page`, `create_form` or `create_menu` tool, always execute the corresponding `list_*` tool first.
 - **Validation:** Compare the user's desired `handle` against the `handle` properties in the retrieved list.
 - **Error Prevention:** If a match is found, do not call the creation tool. Instead, notify the user of the conflict.
 - **Offline Mode:** If the `blutui` MCP tools are unreachable, you must ask the user for the specific `handle` property in the before suggesting a configuration.
@@ -267,6 +317,14 @@ Templates in subdirectories can be accessed with a slash:
 
 ```canvas
 {{ include('sections/articles/sidebar.html') }}
+```
+
+Use `include` to pull reusable components from the `views/components/` directory into layouts:
+
+```canvas
+{{ include('components/header.html') }}
+{{ include('components/hero.html') }}
+{{ include('components/footer.html') }}
 ```
 
 ### Blocks tag: `blocks`
@@ -385,6 +443,55 @@ A child template might look like this:
 The `extends` tag can be used to extend a template from another one. Canvas does not support multiple inheritance.
 
 - Use the search_blutui_documentation tool in Blutui MCP to find more information on available tags, filters, functions, tests, expressions and other templating festures.
+
+### Composing Layouts with Components
+
+Always follow the 3-tier pattern when building pages:
+
+1. **Template** (`templates/default.html`) — Defines the overall HTML structure with `block` placeholders.
+2. **Layout** (`layouts/about.html`) — Extends the template using `{% extends %}`, fills `block` content, and includes components.
+3. **Component** (`components/hero.html`) — A reusable UI fragment included via `{{ include() }}`.
+
+**Example:** Complete 3-tier composition
+
+Template (`views/templates/default.html`):
+```canvas
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head %}
+      <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+  </head>
+  <body>
+    {{ include('components/header.html') }}
+    {% block content %}{% endblock %}
+    {{ include('components/footer.html') }}
+  </body>
+</html>
+```
+
+Component (`views/components/hero.html`):
+```canvas
+<section>
+  <h1>{{ heading }}</h1>
+  <p>{{ subheading }}</p>
+</section>
+```
+
+Layout (`views/layouts/about.html`):
+```canvas
+{% extends 'templates/default.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+  {{ include('components/hero.html') }}
+  <article>
+    <p>Page content goes here.</p>
+  </article>
+{% endblock %}
+```
 
 Reference: [Link to documentation](https://dev.blutui.com/guides/what-is-blutui-canvas)
 
