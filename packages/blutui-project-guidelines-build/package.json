@@ -1,0 +1,25 @@
+{
+  "name": "blutui-project-guidelines-build",
+  "version": "1.0.0",
+  "description": "Build tooling for Blutui Project Guidelines skills",
+  "license": "MIT",
+  "keywords": [
+    "blutui",
+    "guidelines",
+    "llm",
+    "agents",
+    "skills"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "pnpm build-agents",
+    "build-agents": "tsx src/build.ts",
+    "validate": "tsx src/validate.ts",
+    "dev": "pnpm build && pnpm validate"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
