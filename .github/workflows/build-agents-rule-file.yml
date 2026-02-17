@@ -1,37 +1,46 @@
-name: Build AGENTS.md Rule File
+name: Blutui Project Guidelines CI
 
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
-      - 'skills/**/rules/**'
+      - "skills/blutui-project-guidelines/**"
+      - "packages/blutui-project-guidelines-build/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "skills/blutui-project-guidelines/**"
+      - "packages/blutui-project-guidelines-build/**"
 
 jobs:
-  build-agents-rule-file:
+  validate:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    
+
+    defaults:
+      run:
+        working-directory: packages/blutui-project-guidelines-build
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      
+          version: 10.24.0
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      
-      - name: Build AGENTS.md
-        run: |
-          node .github/build-agents-md/build.js
-      
-      - name: Commit and push if changed
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add AGENTS.md
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update AGENTS.md" && git push)
+          node-version: "20"
+          cache: "pnpm"
+          cache-dependency-path: packages/blutui-project-guidelines-build/pnpm-lock.yaml
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Validate Guidelines
+        run: pnpm validate
+
+      - name: Build Guidelines
+        run: pnpm build
