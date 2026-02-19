@@ -16,11 +16,11 @@ Reference these guidelines when:
 
 ## Rule Categories by Priority
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 0 | Section 0 | MEDIUM | `undefined-` |
-| 1 | Foundation | CRITICAL | `foundation-` |
-| 2 | Templating | CRITICAL | `templating-` |
+| Priority | Category   | Impact   | Prefix        |
+| -------- | ---------- | -------- | ------------- |
+| 0        | Section 0  | MEDIUM   | `undefined-`  |
+| 1        | Foundation | CRITICAL | `foundation-` |
+| 2        | Templating | CRITICAL | `templating-` |
 
 ## Quick Reference
 
@@ -53,6 +53,7 @@ rules/canopy.md
 rules/foundation-courier-configuration.md
 rules/templating-canvas.md
 ```
+
 Each rule file contains:
 
 - Brief explanation of why it matters

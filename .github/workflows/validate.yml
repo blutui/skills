@@ -4,21 +4,15 @@ on:
   push:
     branches: [main]
     paths:
-      - "skills/blutui-project-guidelines/**"
-      - "packages/blutui-project-guidelines-build/**"
+      - 'skills/blutui-project-guidelines/**'
   pull_request:
     branches: [main]
     paths:
-      - "skills/blutui-project-guidelines/**"
-      - "packages/blutui-project-guidelines-build/**"
+      - 'skills/blutui-project-guidelines/**'
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: packages/blutui-project-guidelines-build
 
     steps:
       - name: Checkout
@@ -32,9 +26,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "pnpm"
-          cache-dependency-path: packages/blutui-project-guidelines-build/pnpm-lock.yaml
+          node-version: '20'
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install Dependencies
         run: pnpm install

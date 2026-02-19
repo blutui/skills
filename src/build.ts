@@ -274,7 +274,7 @@ function buildSkillMd(skill: Skill): string {
     lines.push(`rules/${firstRule.name}.md`)
   })
   lines.push('```')
-
+  lines.push('')
   lines.push('Each rule file contains:')
   lines.push('')
   lines.push('- Brief explanation of why it matters')
