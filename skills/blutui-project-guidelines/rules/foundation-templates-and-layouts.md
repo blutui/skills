@@ -1,6 +1,9 @@
-| Title | Impact | Impact Description | Tags |
-|-------|--------|-------------------|------|
-| Templates and Layouts | CRITICAL | Functional Impact - Blutui templates and layouts govern core project logic. Deviating from these structures results in broken inheritance and rendering failures, preventing the project from functioning as intended. | project, file structure, views, templates, layouts, components |
+---
+title: Templates and Layouts
+impact: CRITICAL
+impactDescription: Functional Impact - Blutui templates and layouts govern core project logic. Deviating from these structures results in broken inheritance and rendering failures, preventing the project from functioning as intended.
+tags: project, file structure, views, templates, layouts, components
+---
 
 ## Layouts and Templates
 
@@ -43,4 +46,4 @@ Follow these steps every time a new page is needed:
 {% endblock %}
 ```
 
-Reference: [Link to documentation - How to create a Layout](https://docs.blutui.com/guides/create-layout)
+Reference: [How to create a layout](https://docs.blutui.com/guides/create-layout)

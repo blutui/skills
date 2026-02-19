@@ -1,12 +1,16 @@
-| Title | Impact | Impact Description | Tags |
-|-------|--------|-------------------|------|
-| Form Standards | CRITICAL | Strict adherence to Blutui Form Syntax is mandatory. Non-compliant syntax causes silent failures or data submission errors, preventing the form from processing correctly within the ecosystem. | form |
+---
+title: Form Standards
+impact: CRITICAL
+impactDescription: Strict adherence to Blutui Form Syntax is mandatory. Non-compliant syntax causes silent failures or data submission errors, preventing the form from processing correctly within the ecosystem.
+tags: form
+---
 
 ## Blutui Form standards and examples
 
 ### Directory Structure
 
 Ensure your `views` directory is organized as follows:
+
 - `views/`
   - `components/`
     - `form.html` (Macro definitions)

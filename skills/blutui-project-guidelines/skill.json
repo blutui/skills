@@ -1,0 +1,11 @@
+{
+  "name": "blutui-project-guidelines",
+  "title": "Blutui Project Guidelines",
+  "sections": {
+    "foundation": 1,
+    "templating": 2
+  },
+  "whenToApply": [
+    "Writing new Blutui project templates, layouts, components, and more"
+  ]
+}

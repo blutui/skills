@@ -1,15 +1,18 @@
-| Title | Impact | Impact Description | Tags |
-|-------|--------|-------------------|------|
-| Canvas - Template Engine | CRITICAL | High Impact (90%) - The Template Engine serves as the critical logic layer, binding HTML elements to Blutui-specific concepts. Strict adherence to this syntax is mandatory for data interactivity; without it, the project will fail to render or process dynamic data. | canvas, variables, tags, filters, functions, tests, expressions, templating festures |
+---
+title: Canvas
+impact: CRITICAL
+impactDescription: High Impact (90%) - The Template Engine serves as the critical logic layer, binding HTML elements to Blutui-specific concepts. Strict adherence to this syntax is mandatory for data interactivity; without it, the project will fail to render or process dynamic data.
+tags: canvas, variables, tags, filters, functions, tests, expressions, templating festures
+---
 
-## Canvas - Template Engine
+## Canvas
 
 Canvas serves as the template engine for Blutui, combining HTML, CSS, and JavaScript with unique Canvas logic to create fully customized project designs.
 
 - The template is a regular text file. It can generate any text-based format (HTML, XML, CSV, LaTeX, etc.). The file extension is ".canvas".
 - A template contains variables, tags, filters, functions, tests, expressions and other templating festures, which get replaced with values when the template is evaluated, and tags, which control the template's logic.
 
-**Example** 
+**Example**
 
 ```canvas
 <!DOCTYPE html>
@@ -31,9 +34,9 @@ Canvas serves as the template engine for Blutui, combining HTML, CSS, and JavaSc
 </html>
 ```
 
-- There are two kinds of delimiters: 
-    - {% ... %}: Used for executing statements.
-    - {{ ... }} : Used for printing values to the rendered page.
+- There are two kinds of delimiters:
+  - {% ... %}: Used for executing statements.
+  - {{ ... }} : Used for printing values to the rendered page.
 
 ### Including other templates
 
@@ -87,7 +90,7 @@ Canvas allows to add the name of the block after the end tag for better readabil
 {% endfor %}
 ```
 
-**Example:** Correct way to use blocks 
+**Example:** Correct way to use blocks
 
 A child template looks like this
 
@@ -130,7 +133,7 @@ A parent template looks like this
 
 ### Template Inheritence
 
-Maximize your workflow with template inheritance. Instead of duplicating code, build a single base template for common site features in `views/templates/defualt.html`.  Use `blocks` to define areas where child templates can inject specific content, ensuring a consistent structure across every page.
+Maximize your workflow with template inheritance. Instead of duplicating code, build a single base template for common site features in `views/templates/defualt.html`. Use `blocks` to define areas where child templates can inject specific content, ensuring a consistent structure across every page.
 
 **Example**: Define a base.html template for a two-column page.
 
@@ -194,6 +197,7 @@ Always follow the 3-tier pattern when building pages:
 **Example:** Complete 3-tier composition
 
 Template (`views/templates/default.html`):
+
 ```canvas
 <!DOCTYPE html>
 <html>
@@ -211,6 +215,7 @@ Template (`views/templates/default.html`):
 ```
 
 Component (`views/components/hero.html`):
+
 ```canvas
 <section>
   <h1>{{ heading }}</h1>
@@ -219,6 +224,7 @@ Component (`views/components/hero.html`):
 ```
 
 Layout (`views/layouts/about.html`):
+
 ```canvas
 {% extends 'templates/default.html' %}
 
