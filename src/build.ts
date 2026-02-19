@@ -43,7 +43,6 @@ function parseFrontmatter(
   return {
     frontmatter: {
       title: parsed.title as string,
-      category: '',
       impact: parsed.impact as ImpactLevel,
     },
     content: body,

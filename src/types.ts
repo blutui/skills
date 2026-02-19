@@ -22,7 +22,6 @@ export interface RuleFile {
 
 export interface RuleFrontmatter {
   title: string
-  category: string
   impact: ImpactLevel
 }
 
@@ -35,18 +34,17 @@ export interface Skill {
 }
 
 export interface SkillMeta {
+  name: string
   title: string
   description: string
+  license: string
   sections: Record<string, number>
   whenToApply: string[]
-  license?: string
   metadata?: {
     author?: string
     version?: string
   }
 }
-
-export interface SkillCategory {}
 
 export interface Section {
   number: number

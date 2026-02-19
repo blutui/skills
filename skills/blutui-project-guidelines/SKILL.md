@@ -1,7 +1,7 @@
 ---
 name: blutui-project-guidelines
-description: undefined
-license: undefined
+description: Guidelines for building Blutui projects. This skill should be used when writing, reviewing, or refactoring Blutui Canvas code.
+license: MIT
 ---
 
 # Blutui Project Guidelines
@@ -13,6 +13,7 @@ Contains 11 rules across 3 categories, prioritized by impact to guide automated 
 Reference these guidelines when:
 
 - Writing new Blutui project templates, layouts, components, and more
+- Refactoring existing frontend code
 
 ## Rule Categories by Priority
 
