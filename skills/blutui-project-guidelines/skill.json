@@ -11,5 +11,8 @@
     "Writing new Blutui project templates, layouts, components, and more",
     "Refactoring existing frontend code"
   ],
-  "metadata": {}
+  "metadata": {
+    "author": "Blutui",
+    "version": "1.0.0"
+  }
 }

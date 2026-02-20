@@ -13,7 +13,7 @@ interface ValidationError {
 }
 
 interface SkillValidationResult {
-  skillName: string
+  skill: string
   errors: ValidationError[]
   warnings: ValidationError[]
 }
@@ -186,17 +186,19 @@ interface RuleValidationResult {
 function validateRule(
   content: string,
   filename: string,
-  skillName: string,
+  skill: string,
   sections: Record<string, number>
 ): RuleValidationResult {
   const errors: ValidationError[] = []
   const warnings: ValidationError[] = []
   const { parsed, body, hasFrontmatter } = extractFrontmatter(content)
 
+  const file = `rules/${filename}`
+
   if (!hasFrontmatter) {
     errors.push({
-      skill: skillName,
-      file: `rules/${filename}`,
+      skill,
+      file,
       message: 'Missing frontmatter block (file must start with ---)',
     })
     return { frontmatter: null, body, errors, warnings }
@@ -208,11 +210,30 @@ function validateRule(
     const missing = val === undefined || val === null || val === ''
     if (missing) {
       errors.push({
-        skill: skillName,
-        file: `rules/${filename}`,
+        skill,
+        file,
         message: `Frontmatter missing required key: "${key}"`,
       })
     }
+  }
+
+  if (!body || body.trim().length === 0) {
+    errors.push({
+      skill,
+      file,
+      message: 'Rule body is empty after frontmatter',
+    })
+  }
+
+  // Check the body doesn't start with a heading (title comes from frontmatter)
+  const headingMatch = body.match(/^#{1,6}\s+\S/)
+  if (headingMatch) {
+    warnings.push({
+      skill,
+      file,
+      message:
+        'Rule body should not start with a heading (title comes from frontmatter)',
+    })
   }
 
   if (errors.length > 0) return { frontmatter: null, body, errors, warnings }
@@ -228,11 +249,65 @@ function validateRule(
   }
 }
 
-async function validateSkill(
-  skillName: string
-): Promise<SkillValidationResult> {
+async function validateBuildOutput(
+  skillDir: string,
+  skill: string,
+  rules: ValidatedRule[]
+): Promise<ValidationError[]> {
+  const errors: ValidationError[] = []
+
+  for (const filename of ['SKILL.md', 'AGENTS.md'] as const) {
+    const filePath = join(skillDir, filename)
+    try {
+      const content = await readFile(filePath, 'utf-8')
+      if (content.trim().length === 0) {
+        errors.push({
+          skill,
+          file: filename,
+          message: `Generated file is empty — run \`pnpm build\` first`,
+        })
+        continue
+      }
+
+      if (filename === 'SKILL.md') {
+        for (const rule of rules) {
+          const slug = rule.filename.replace(/\.md$/, '')
+          if (!content.includes(`\`${slug}\``)) {
+            errors.push({
+              skill,
+              file: filename,
+              message: `Generated SKILL.md is missing slug "\`${slug}\`" — stale output, run \`pnpm build\``,
+            })
+          }
+        }
+      }
+
+      if (filename === 'AGENTS.md') {
+        for (const rule of rules) {
+          if (!content.includes(rule.frontmatter.title)) {
+            errors.push({
+              skill,
+              file: filename,
+              message: `Generated AGENTS.md is missing title "${rule.frontmatter.title}" — stale output, run \`pnpm build\``,
+            })
+          }
+        }
+      }
+    } catch {
+      errors.push({
+        skill,
+        file: filename,
+        message: `Generated file not found — run \`pnpm build\` before validating`,
+      })
+    }
+  }
+
+  return errors
+}
+
+async function validateSkill(skill: string): Promise<SkillValidationResult> {
   // skill.json
-  const skillDir = join(SKILLS_DIR, skillName)
+  const skillDir = join(SKILLS_DIR, skill)
   const errors: ValidationError[] = []
   const warnings: ValidationError[] = []
 
@@ -241,12 +316,12 @@ async function validateSkill(
     const raw = JSON.parse(
       await readFile(join(skillDir, 'skill.json'), 'utf-8')
     )
-    const result = validateSkillJson(raw, skillName)
+    const result = validateSkillJson(raw, skill)
     errors.push(...result.errors)
     meta = result.meta
   } catch {
     errors.push({
-      skill: skillName,
+      skill,
       file: 'skill.json',
       message: 'Could not read or parse skill.json',
     })
@@ -257,10 +332,12 @@ async function validateSkill(
   let ruleFilenames: string[] = []
 
   try {
-    ruleFilenames = (await readdir(rulesDir)).filter((f) => f.endsWith('.md'))
+    ruleFilenames = (await readdir(rulesDir)).filter(
+      (f) => f.endsWith('.md') && !f.startsWith('_') && f !== 'README.md'
+    )
   } catch {
     errors.push({
-      skill: skillName,
+      skill,
       file: 'rules/',
       message: 'Missing rules/ directory',
     })
@@ -268,7 +345,7 @@ async function validateSkill(
 
   if (ruleFilenames.length === 0 && !errors.some((e) => e.file === 'rules/')) {
     errors.push({
-      skill: skillName,
+      skill,
       message: 'Skill has no rule files in rules/ directory',
     })
   }
@@ -280,11 +357,27 @@ async function validateSkill(
     ruleFilenames.map(async (filename) => {
       const filePath = join(rulesDir, filename)
       const content = await readFile(filePath, 'utf-8')
-      return validateRule(content, filename, skillName, meta?.sections ?? {})
+      return validateRule(content, filename, skill, meta?.sections ?? {})
     })
   )
 
-  return { skillName, errors, warnings }
+  for (let i = 0; i < ruleResults.length; i++) {
+    const result = ruleResults[i]
+    errors.push(...result.errors)
+    warnings.push(...result.warnings)
+    if (result.frontmatter) {
+      validatedRules.push({
+        filename: ruleFilenames[i],
+        frontmatter: result.frontmatter,
+      })
+    }
+  }
+
+  if (validatedRules.length > 0) {
+    errors.push(...(await validateBuildOutput(skillDir, skill, validatedRules)))
+  }
+
+  return { skill, errors, warnings }
 }
 
 interface TaggedError extends ValidationError {
@@ -296,7 +389,6 @@ const CHECK_GROUPS: Array<{ label: string; tag: string }> = [
   { label: 'skill.json schema', tag: 'skill.json' },
   { label: 'Rule frontmatter', tag: 'frontmatter' },
   { label: 'Naming conventions', tag: 'convention' },
-  { label: 'Cross-rule uniqueness', tag: 'uniqueness' },
   { label: 'Build output integrity', tag: 'build' },
 ]
 
@@ -310,9 +402,9 @@ function renderSkillSummary(
   const hasWarnings = result.tagged.some((e) => e.severity === 'warning')
 
   const statusLabel = hasErrors ? 'FAIL' : hasWarnings ? 'WARN' : 'PASS'
-  const heading = `${statusLabel} ${result.skillName}`
+  const heading = `${statusLabel} — ${result.skill}`
 
-  console.log(`┌${bar}┐`)
+  console.log(`╭${bar}╮`)
   console.log(`│ ${heading.padEnd(WIDTH - 2)} │`)
   console.log(`├${bar}┤`)
 
@@ -336,7 +428,7 @@ function renderSkillSummary(
     for (const e of [...groupErrors, ...groupWarnings]) {
       const loc = e.file ? `${e.file} — ` : ''
       const bullet = `  · ${loc}${e.message}`
-      const chunks = chunkString(bullet, WIDTH - 1)
+      const chunks = chunkString(bullet, WIDTH - 2)
 
       for (const chunk of chunks) {
         console.log(`│ ${chunk.padEnd(WIDTH - 2)} │`)
@@ -347,7 +439,7 @@ function renderSkillSummary(
     }
   }
 
-  console.log(`└${bar}┘`)
+  console.log(`╰${bar}╯`)
   return { errorCount, warningCount }
 }
 
@@ -378,6 +470,12 @@ function tagErrors(result: SkillValidationResult): TaggedError[] {
 
     if (e.file === 'skill.json' || e.message.includes('skill.json')) {
       t = 'skill.json'
+    } else if (
+      e.message.includes('state output') ||
+      e.message.includes('Generated') ||
+      e.message.includes('pnpm build')
+    ) {
+      t = 'build'
     } else if (e.file === 'rules/') {
       t = 'skill.json' // missing rules/ dir is a structural problem
     }

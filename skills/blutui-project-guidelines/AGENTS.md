@@ -18,6 +18,7 @@
    - 1.3 [Templates and Layouts](#13-templates-and-layouts)
 2. [Templating](#2-templating)
    - 2.1 [Canvas](#21-canvas)
+   - 2.2 [Including other templates](#22-including-other-templates)
 
 ---
 
@@ -331,8 +332,6 @@ Reference: [How to create a layout](https://docs.blutui.com/guides/create-layout
 
 ### 2.1 Canvas
 
-## Canvas
-
 Canvas serves as the template engine for Blutui, combining HTML, CSS, and JavaScript with unique Canvas logic to create fully customized project designs.
 
 - The template is a regular text file. It can generate any text-based format (HTML, XML, CSV, LaTeX, etc.). The file extension is ".canvas".
@@ -363,37 +362,6 @@ Canvas serves as the template engine for Blutui, combining HTML, CSS, and JavaSc
 - There are two kinds of delimiters:
   - {% ... %}: Used for executing statements.
   - {{ ... }} : Used for printing values to the rendered page.
-
-### Including other templates
-
-The `include` function is useful to include a template and return the rendered content of that template into the current one.
-
-```canvas
-{{ include('sidebar.html') }}
-```
-
-Included templates automatically inherit the data context of their parent. This ensures that any variables defined in your main template are immediately accessible within the included file without extra configuration.
-
-```canvas
-{% for box in boxes %}
-  {{ include('render_box.html') }}
-{% endfor %}
-// The included template render_box.html is able to access the box variable.
-```
-
-Templates in subdirectories can be accessed with a slash:
-
-```canvas
-{{ include('sections/articles/sidebar.html') }}
-```
-
-Use `include` to pull reusable components from the `views/components/` directory into layouts:
-
-```canvas
-{{ include('components/header.html') }}
-{{ include('components/hero.html') }}
-{{ include('components/footer.html') }}
-```
 
 ### Blocks tag: `blocks`
 
@@ -565,5 +533,36 @@ Layout (`views/layouts/about.html`):
 ```
 
 Reference: [Link to documentation](https://dev.blutui.com/guides/what-is-blutui-canvas)
+
+### 2.2 Including other templates
+
+The `include` function is useful to include a template and return the rendered content of that template into the current one.
+
+```canvas
+{{ include('sidebar') }}
+```
+
+Included templates automatically inherit the data context of their parent. This ensures that any variables defined in your main template are immediately accessible within the included file without extra configuration.
+
+```canvas
+{% for box in boxes %}
+  {{ include('render_box') }}
+{% endfor %}
+// The included template `render_box` is able to access the box variable.
+```
+
+Templates in subdirectories can be accessed with a slash:
+
+```canvas
+{{ include('sections/articles/sidebar') }}
+```
+
+Use `include` to pull reusable components from the `views/components/` directory into layouts:
+
+```canvas
+{{ include('components/header') }}
+{{ include('components/hero') }}
+{{ include('components/footer') }}
+```
 
 ---

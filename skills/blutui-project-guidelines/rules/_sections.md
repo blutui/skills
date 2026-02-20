@@ -5,12 +5,12 @@ The section ID (in parentheses) is the filename prefix used to group rules.
 
 ---
 
-## 1. Foundation
+## 1. Foundation (foundation)
 
 **Impact:** CRITICAL
 **Description:** The essential configuration, file structure, and standards required for every Blutui project.
 
-## 2. Templating
+## 2. Templating (templating)
 
 **Impact:** CRITICAL
 **Description:** Guide to using Blutui's template engine for building dynamic, data-driven pages with variables, tags, filters, and expressions.

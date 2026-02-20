@@ -2,11 +2,14 @@
 name: blutui-project-guidelines
 description: Guidelines for building Blutui projects. This skill should be used when writing, reviewing, or refactoring Blutui Canvas code.
 license: MIT
+metadata:
+  author: Blutui
+  version: "1.0.0"
 ---
 
 # Blutui Project Guidelines
 
-Contains 11 rules across 3 categories, prioritized by impact to guide automated refactoring and code generation.
+Contains 12 rules across 3 categories, prioritized by impact to guide automated refactoring and code generation.
 
 ## When to Apply
 
@@ -17,11 +20,11 @@ Reference these guidelines when:
 
 ## Rule Categories by Priority
 
-| Priority | Category   | Impact   | Prefix        |
-| -------- | ---------- | -------- | ------------- |
-| 0        | Section 0  | MEDIUM   | `undefined-`  |
-| 1        | Foundation | CRITICAL | `foundation-` |
-| 2        | Templating | CRITICAL | `templating-` |
+| Priority | Category | Impact | Prefix |
+|----------|----------|--------|--------|
+| 0 | Section 0 | MEDIUM | `undefined-` |
+| 1 | Foundation | CRITICAL | `foundation-` |
+| 2 | Templating | CRITICAL | `templating-` |
 
 ## Quick Reference
 
@@ -44,6 +47,7 @@ Reference these guidelines when:
 ### 2. Templating (CRITICAL)
 
 - `templating-canvas` - Canvas
+- `templating-including-templates` - Including other templates
 
 ## How to Use
 
