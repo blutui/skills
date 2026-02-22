@@ -4,7 +4,7 @@ description: Guidelines for building Blutui projects. This skill should be used 
 license: MIT
 metadata:
   author: Blutui
-  version: "1.0.0"
+  version: '1.0.0'
 ---
 
 # Blutui Project Guidelines
@@ -20,11 +20,11 @@ Reference these guidelines when:
 
 ## Rule Categories by Priority
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 0 | Section 0 | MEDIUM | `undefined-` |
-| 1 | Foundation | CRITICAL | `foundation-` |
-| 2 | Templating | CRITICAL | `templating-` |
+| Priority | Category   | Impact   | Prefix        |
+| -------- | ---------- | -------- | ------------- |
+| 0        | Section 0  | MEDIUM   | `undefined-`  |
+| 1        | Foundation | CRITICAL | `foundation-` |
+| 2        | Templating | CRITICAL | `templating-` |
 
 ## Quick Reference
 
