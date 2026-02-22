@@ -1,6 +1,9 @@
-| Title | Impact | Impact Description | Tags |
-|-------|--------|-------------------|------|
-| Routing Pattern Standards | CRITICAL | Strict adherence to Blutui Route Pattern standards is mandatory. Non-compliant routing triggers 500 Server Errors and breaks site navigation, leading to total loss of user access. | route, route pattern |
+---
+title: Routing Pattern Standards
+impact: CRITICAL
+impactDescription: Strict adherence to Blutui Route Pattern standards is mandatory. Non-compliant routing triggers 500 Server Errors and breaks site navigation, leading to total loss of user access.
+tags: route, route pattern
+---
 
 ## Routing Pattern Standard
 

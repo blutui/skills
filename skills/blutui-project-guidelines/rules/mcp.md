@@ -1,6 +1,9 @@
-| Title | Impact | Impact Description | Tags |
-|-------|--------|-------------------|------|
-| MCP | HIGH | Efficiency Multiplier - The Blutui MCP grants agents direct access to project-specific tooling, streamlining complex workflows and increasing development velocity by up to 300%. | mcp, tools, search, documentation |
+---
+title: MCP
+impact: HIGH
+impactDescription: Efficiency Multiplier - The Blutui MCP grants agents direct access to project-specific tooling, streamlining complex workflows and increasing development velocity by up to 300%.
+tags: mcp, tools, search, documentation
+---
 
 ## Blutui MCP
 
@@ -33,7 +36,7 @@ The agent must never skip the MCP step. A layout file without a corresponding pa
 - **Error Prevention:** If a match is found, do not call the creation tool. Instead, notify the user of the conflict.
 - **Offline Mode:** If the `blutui` MCP tools are unreachable, you must ask the user for the specific `handle` property in the before suggesting a configuration.
 
-Reference: 
+Reference:
 
 - [Link to documentation - Connect to Blutui MCP](https://docs.blutui.com/docs/getting-started/agentic-development)
 - [Link to documentation - Connect to Figma MCP](https://dev.blutui.com/guides/figma-to-blutui)
