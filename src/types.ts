@@ -34,12 +34,15 @@ export interface Skill {
 }
 
 export interface SkillMeta {
-  name: string
   title: string
-  description: string
-  license: string
   sections: Record<string, number>
   whenToApply: string[]
+
+  // Agent Skils Spec
+  name: string
+  description: string
+  license?: string
+  compatibility?: string
   metadata?: {
     author?: string
     version?: string

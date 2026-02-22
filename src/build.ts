@@ -203,12 +203,19 @@ function buildSkillMd(skill: Skill): string {
 
   lines.push(`name: ${skill.skill}`)
   lines.push(`description: ${meta.description}`)
-  lines.push(`license: ${meta.license}`)
+
+  if (meta.license) {
+    lines.push(`license: ${meta.license}`)
+  }
+
+  if (meta.compatibility) {
+    lines.push(`compatibility: ${meta.compatibility}`)
+  }
 
   if (meta.metadata) {
     lines.push(`metadata:`)
     lines.push(`  author: ${meta.metadata.author}`)
-    lines.push(`  version: "${meta.metadata.version}"`)
+    lines.push(`  version: '${meta.metadata.version}'`)
   }
 
   lines.push('---')
