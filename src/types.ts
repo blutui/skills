@@ -36,7 +36,6 @@ export interface Skill {
 export interface SkillMeta {
   title: string
   sections: Record<string, number>
-  whenToApply: string[]
 
   // Agent Skils Spec
   name: string

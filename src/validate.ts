@@ -138,15 +138,6 @@ function validateSkillJson(
     }
   }
 
-  // whenToApply array...
-  if (!Array.isArray(obj.whenToApply) || obj.whenToApply.length === 0) {
-    errors.push({
-      skill,
-      file,
-      message: '"whenToApply" must be a non-empty array',
-    })
-  }
-
   // metadata object...
   if (
     !obj.metadata ||

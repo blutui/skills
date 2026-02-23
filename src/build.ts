@@ -194,106 +194,6 @@ async function loadSkills() {
   return results.filter((s): s is Skill => s !== null)
 }
 
-function buildSkillMd(skill: Skill): string {
-  const lines: string[] = []
-  const { meta, sections } = skill
-  const totalRules = skill.rules
-
-  lines.push('---')
-
-  lines.push(`name: ${skill.skill}`)
-  lines.push(`description: ${meta.description}`)
-
-  if (meta.license) {
-    lines.push(`license: ${meta.license}`)
-  }
-
-  if (meta.compatibility) {
-    lines.push(`compatibility: ${meta.compatibility}`)
-  }
-
-  if (meta.metadata) {
-    lines.push(`metadata:`)
-    lines.push(`  author: ${meta.metadata.author}`)
-    lines.push(`  version: '${meta.metadata.version}'`)
-  }
-
-  lines.push('---')
-  lines.push('')
-
-  lines.push(`# ${meta.title}`)
-  lines.push('')
-  lines.push(
-    `Contains ${totalRules} rule${totalRules !== 1 ? 's' : ''} across ` +
-      `${sections.length} categor${sections.length !== 1 ? 'ies' : 'y'}, ` +
-      `prioritized by impact to guide automated refactoring and code generation.`
-  )
-  lines.push('')
-
-  lines.push('## When to Apply')
-  lines.push('')
-  lines.push('Reference these guidelines when:')
-  lines.push('')
-  for (const item of meta.whenToApply) {
-    lines.push(`- ${item}`)
-  }
-  lines.push('')
-
-  lines.push('## Rule Categories by Priority')
-  lines.push('')
-  lines.push('| Priority | Category | Impact | Prefix |')
-  lines.push('|----------|----------|--------|--------|')
-  sections.forEach((section) => {
-    const prefix = Object.keys(meta.sections).find(
-      (key) => meta.sections[key] === section.number
-    )
-
-    lines.push(
-      `| ${section.number} | ${section.title} | ${section.impact} | \`${prefix}-\` |`
-    )
-  })
-  lines.push('')
-
-  lines.push('## Quick Reference')
-  lines.push('')
-  sections.forEach((section) => {
-    lines.push(`### ${section.number}. ${section.title} (${section.impact})`)
-    lines.push('')
-
-    section.rules.forEach((rule) => {
-      lines.push(`- \`${rule.name}\` - ${rule.title}`)
-    })
-
-    lines.push('')
-  })
-
-  lines.push('## How to Use')
-  lines.push('')
-  lines.push(
-    'Read individual rule files for detailed explanations and code examples:'
-  )
-  lines.push('')
-  lines.push('```')
-  sections.forEach((section) => {
-    const firstRule = section.rules[0]
-
-    lines.push(`rules/${firstRule.name}.md`)
-  })
-  lines.push('```')
-  lines.push('')
-  lines.push('Each rule file contains:')
-  lines.push('')
-  lines.push('- Brief explanation of why it matters')
-  lines.push('')
-
-  lines.push('## Full Compiled Document')
-  lines.push('')
-  lines.push('For the complete guide with all rules expanded: `AGENTS.md`')
-  lines.push('')
-
-  return lines.join('\n')
-}
-
 function buildAgentsMd(skill: Skill): string {
   const lines: string[] = []
   const { sections } = skill
@@ -346,15 +246,10 @@ function buildAgentsMd(skill: Skill): string {
 }
 
 async function writeSkill(skill: Skill): Promise<void> {
-  const skillMdOut = join(skill.skillDir, 'SKILL.md')
   const agentsOut = join(skill.skillDir, 'AGENTS.md')
 
-  await Promise.all([
-    writeFile(skillMdOut, buildSkillMd(skill), 'utf-8'),
-    writeFile(agentsOut, buildAgentsMd(skill), 'utf-8'),
-  ])
+  await Promise.all([writeFile(agentsOut, buildAgentsMd(skill), 'utf-8')])
 
-  console.log(`   → ${skillMdOut}`)
   console.log(`   → ${agentsOut}`)
 }
 

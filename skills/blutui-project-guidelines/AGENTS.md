@@ -335,7 +335,7 @@ Reference: [How to create a layout](https://docs.blutui.com/guides/create-layout
 Canvas serves as the template engine for Blutui, combining HTML, CSS, and JavaScript with unique Canvas logic to create fully customized project designs.
 
 - The template is a regular text file. It can generate any text-based format (HTML, XML, CSV, LaTeX, etc.). The file extension is ".canvas".
-- A template contains variables, tags, filters, functions, tests, expressions and other templating festures, which get replaced with values when the template is evaluated, and tags, which control the template's logic.
+- A template contains variables, tags, filters, functions, tests, expressions and other templating features, which get replaced with values when the template is evaluated.
 
 **Example**
 
@@ -348,7 +348,7 @@ Canvas serves as the template engine for Blutui, combining HTML, CSS, and JavaSc
 
   <body>
     <ul id="navigation">
-      {% for item in navigation>%}
+      {% for item in navigation %}
         <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
       {% endfor %}
     </ul>
