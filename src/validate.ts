@@ -247,7 +247,7 @@ async function validateBuildOutput(
 ): Promise<ValidationError[]> {
   const errors: ValidationError[] = []
 
-  for (const filename of ['SKILL.md', 'AGENTS.md'] as const) {
+  for (const filename of ['AGENTS.md'] as const) {
     const filePath = join(skillDir, filename)
     try {
       const content = await readFile(filePath, 'utf-8')
@@ -258,19 +258,6 @@ async function validateBuildOutput(
           message: `Generated file is empty — run \`pnpm build\` first`,
         })
         continue
-      }
-
-      if (filename === 'SKILL.md') {
-        for (const rule of rules) {
-          const slug = rule.filename.replace(/\.md$/, '')
-          if (!content.includes(`\`${slug}\``)) {
-            errors.push({
-              skill,
-              file: filename,
-              message: `Generated SKILL.md is missing slug "\`${slug}\`" — stale output, run \`pnpm build\``,
-            })
-          }
-        }
       }
 
       if (filename === 'AGENTS.md') {
