@@ -46,7 +46,7 @@ Each project can have multiple cassettes.
 
 To switch cassettes, update the cassette property within the `courier.json` file. If this property is missing or undefined, prompt the user to provide the specific cassette handle.
 
-Reference: [Link to documentation](https://dev.blutui.com/docs/cassettes/getting-started)
+Reference: [Link to documentation](https://docs.blutui.com/docs/cassettes/getting-started)
 
 ### 0.3 Collections
 
@@ -83,7 +83,7 @@ To create, retreive and list collection or collection entries or links, the agen
 </div>
 ```
 
-Reference: [Link to documentation](https://dev.blutui.com/docs/collections/getting-started)
+Reference: [Link to documentation](https://docs.blutui.com/docs/collections/getting-started)
 
 ### 0.4 Courier
 
@@ -95,7 +95,7 @@ Courier is a command-line interface tool to interact with a project. It allows u
 
 Courier must be installed and configured on the user's machine to enable full functionality. `courier version` command can be used to check if the user has courier installed.
 
-Reference: [Link to documentation](https://dev.blutui.com/docs/courier/getting-started)
+Reference: [Link to documentation](https://docs.blutui.com/docs/courier/getting-started)
 
 ### 0.5 Form Standards
 
@@ -150,7 +150,7 @@ Ensure your `views` directory is organized as follows:
 - Do not attempt to use custom field types. If a type is not on this list, default to `text` and notify the user.
 - Always transmit field types to the MCP in lowercase format.
 
-Reference: [Link to documentation](https://dev.blutui.com/guides/create-form)
+Reference: [Link to documentation](https://docs.blutui.com/guides/create-form)
 
 ### 0.6 MCP
 
@@ -188,7 +188,7 @@ The agent must never skip the MCP step. A layout file without a corresponding pa
 Reference:
 
 - [Link to documentation - Connect to Blutui MCP](https://docs.blutui.com/docs/getting-started/agentic-development)
-- [Link to documentation - Connect to Figma MCP](https://dev.blutui.com/guides/figma-to-blutui)
+- [Link to documentation - Connect to Figma MCP](https://docs.blutui.com/guides/figma-to-blutui)
 
 ### 0.7 Routing Pattern Standards
 
@@ -236,7 +236,7 @@ The `cassette` property determines which project version is active.
 
 After making changes to the `courier.json`, instruct user to restart their `courier dev` session or the Blutui MCP server if it's running.
 
-Reference: [Courier configuration](https://dev.blutui.com/docs/courier/configuration)
+Reference: [Courier configuration](https://docs.blutui.com/docs/courier/configuration)
 
 ### 1.2 File Structure
 
@@ -532,7 +532,7 @@ Layout (`views/layouts/about.html`):
 {% endblock %}
 ```
 
-Reference: [Link to documentation](https://dev.blutui.com/guides/what-is-blutui-canvas)
+Reference: [Link to documentation](https://docs.blutui.com/guides/what-is-blutui-canvas)
 
 ### 2.2 Including other templates
 

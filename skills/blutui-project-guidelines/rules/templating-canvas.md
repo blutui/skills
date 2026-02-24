@@ -205,4 +205,4 @@ Layout (`views/layouts/about.html`):
 {% endblock %}
 ```
 
-Reference: [Link to documentation](https://dev.blutui.com/guides/what-is-blutui-canvas)
+Reference: [Link to documentation](https://docs.blutui.com/guides/what-is-blutui-canvas)

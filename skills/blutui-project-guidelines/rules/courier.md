@@ -13,4 +13,4 @@ Courier is a command-line interface tool to interact with a project. It allows u
 
 Courier must be installed and configured on the user's machine to enable full functionality. `courier version` command can be used to check if the user has courier installed.
 
-Reference: [Link to documentation](https://dev.blutui.com/docs/courier/getting-started)
+Reference: [Link to documentation](https://docs.blutui.com/docs/courier/getting-started)

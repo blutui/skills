@@ -51,7 +51,7 @@ The mental model: **templates are for developers** (HTML shell, global regions),
 
 Blutui uses Canvas as its templating language. Use Canvas filters, functions, and tags. See the **Templating** category in the **Rule Index** for more information.
 
-### 3. Collection are the data layer
+### 3. Collections are the data layer
 
 Store structured content (team members, products, etc.) in **Collections**, not hardcoded in templates. Query collections via the `cms.collection('<handle>')` function or using Blutui MCP.
 
