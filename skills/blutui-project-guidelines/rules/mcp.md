@@ -39,4 +39,4 @@ The agent must never skip the MCP step. A layout file without a corresponding pa
 Reference:
 
 - [Link to documentation - Connect to Blutui MCP](https://docs.blutui.com/docs/getting-started/agentic-development)
-- [Link to documentation - Connect to Figma MCP](https://dev.blutui.com/guides/figma-to-blutui)
+- [Link to documentation - Connect to Figma MCP](https://docs.blutui.com/guides/figma-to-blutui)

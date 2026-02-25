@@ -38,4 +38,4 @@ To create, retreive and list collection or collection entries or links, the agen
 </div>
 ```
 
-Reference: [Link to documentation](https://dev.blutui.com/docs/collections/getting-started)
+Reference: [Link to documentation](https://docs.blutui.com/docs/collections/getting-started)

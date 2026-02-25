@@ -13,4 +13,4 @@ Each project can have multiple cassettes.
 
 To switch cassettes, update the cassette property within the `courier.json` file. If this property is missing or undefined, prompt the user to provide the specific cassette handle.
 
-Reference: [Link to documentation](https://dev.blutui.com/docs/cassettes/getting-started)
+Reference: [Link to documentation](https://docs.blutui.com/docs/cassettes/getting-started)

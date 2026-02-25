@@ -56,4 +56,4 @@ Ensure your `views` directory is organized as follows:
 - Do not attempt to use custom field types. If a type is not on this list, default to `text` and notify the user.
 - Always transmit field types to the MCP in lowercase format.
 
-Reference: [Link to documentation](https://dev.blutui.com/guides/create-form)
+Reference: [Link to documentation](https://docs.blutui.com/guides/create-form)
